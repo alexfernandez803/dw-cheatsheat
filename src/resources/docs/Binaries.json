@@ -1,0 +1,44 @@
+[
+  {
+    "name": "fromBase64",
+    "description": "Transforms a Base64 string into a binary value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-frombase64",
+    "source": "%dw 2.0\n\nimport fromBase64 from dw::core::Binaries\noutput application/octet-stream\n---\nfromBase64(payload)",
+    "output": ""
+  },
+  {
+    "name": "fromHex",
+    "description": "Transforms a hexadecimal string into a binary.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-fromhex",
+    "source": "%dw 2.0\nimport * from dw::core::Binaries\noutput application/dw\n---\n{ \"hexToBinary\": fromHex(\"4D756C65\") }",
+    "output": "{\n    hexToBinary: \"TXVsZQ==\" as Binary {base: \"64\"}\n}"
+  },
+  {
+    "name": "readLinesWith",
+    "description": "Splits the specified binary content into lines and returns the results in an\narray.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-readlineswith",
+    "source": "%dw 2.0\nimport * from dw::core::Binaries\nvar content = read(\"Line 1\\nLine 2\\nLine 3\\nLine 4\\nLine 5\\n\", \"application/octet-stream\")\noutput application/json\n---\n{\n   lines : (content readLinesWith \"UTF-8\"),\n   showType: typeOf(content)\n}",
+    "output": "{\n   \"lines\": [ \"Line 1\", \"Line 2\", \"Line 3\", \"Line 4\", \"Line 5\" ],\n   \"showType\": \"Binary\"\n}"
+  },
+  {
+    "name": "toBase64",
+    "description": "Transforms a binary value into a Base64 string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-tobase64",
+    "source": "%dw 2.0\n\nimport dw::Crypto\nimport toBase64 from dw::core::Binaries\n\nvar emailChecksum = Crypto::MD5(\"achaval@gmail.com\" as Binary)\nvar image = readUrl(log(\"https://www.gravatar.com/avatar/$(emailChecksum)\"), \"application/octet-stream\")\n\noutput application/json\n---\ntoBase64(image)",
+    "output": "\"/9j/4AAQSkZJRgABAQEAYABgAAD//...\""
+  },
+  {
+    "name": "toHex",
+    "description": "Transforms a binary value into a hexadecimal string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-tohex",
+    "source": "%dw 2.0\nimport * from dw::core::Binaries\noutput application/json\nvar myBinary = \"Mule\" as Binary\nvar testType = typeOf(myBinary)\n---\n{\n   \"binaryToHex\" : toHex(myBinary)\n}",
+    "output": "{ \"binaryToHex\": \"4D756C65\" }"
+  },
+  {
+    "name": "writeLinesWith",
+    "description": "Writes the specified lines and returns the binary content.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-binaries-functions-writelineswith",
+    "source": "%dw 2.0\nimport * from dw::core::Binaries\noutput application/json\n---\n{ lines: to(1, 10) map \"Line $\" writeLinesWith  \"UTF-8\" }",
+    "output": "{\n  \"lines\": \"Line 1\\nLine 2\\nLine 3\\nLine 4\\nLine 5\\n\"\n}"
+  }
+]

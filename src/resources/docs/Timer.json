@@ -1,0 +1,30 @@
+[
+  {
+    "name": "currentMilliseconds",
+    "description": "Returns the current time in milliseconds.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-timer-functions-currentmilliseconds",
+    "source": "%dw 2.0\nimport * from dw::util::Timer\noutput application/json\n---\n{ \"currentMilliseconds\" : currentMilliseconds() }",
+    "output": "{ \"currentMilliseconds\": 1532923168900 }"
+  },
+  {
+    "name": "duration",
+    "description": "Executes the input function and returns an object with execution time in\nmilliseconds and result of that function.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-timer-functions-duration",
+    "source": "%dw 2.0\noutput application/json\nfun myFunction() = dw::Runtime::wait(\"My result\",100)\n---\ndw::util::Timer::duration(() -> myFunction())",
+    "output": "{\n  \"time\": 101,\n  \"result\": \"My result\"\n}"
+  },
+  {
+    "name": "time",
+    "description": "Executes the input function and returns a TimeMeasurement object that\ncontains the start and end time for the execution of that function, as well\nthe result of the function.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-timer-functions-time",
+    "source": "{\n  \"testing\": [\n    {\n      \"start\": \"2018-10-05T19:23:01.49Z\",\n      \"result\": \"My result\",\n      \"end\": \"2018-10-05T19:23:01.591Z\"\n    },\n    {\n      \"start\": \"2018-10-05T19:23:01.591Z\",\n      \"result\": 10,\n      \"end\": \"2018-10-05T19:23:01.591Z\"\n    }\n  ]\n}",
+    "output": ""
+  },
+  {
+    "name": "toMilliseconds",
+    "description": "Returns the representation of a specified date-time in milliseconds.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-timer-functions-tomilliseconds",
+    "source": "%dw 2.0\nimport * from dw::util::Timer\noutput application/json\n---\n{ \"toMilliseconds\" : toMilliseconds(|2018-07-23T22:03:04.829Z|) }",
+    "output": "{ \"toMilliseconds\": 1532383384829 }"
+  }
+]

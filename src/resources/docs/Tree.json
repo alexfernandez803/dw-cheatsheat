@@ -1,0 +1,23 @@
+[
+  {
+    "name": "asExpressionString",
+    "description": "Transforms a path to a string representation.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-tree-functions-asexpressionstring",
+    "source": "%dw 2.0\nimport * from dw::util::Tree\noutput application/json\n---\nasExpressionString([{kind: OBJECT_TYPE, selector: \"user\", namespace: null}, {kind: ATTRIBUTE_TYPE, selector: \"name\", namespace: null}])",
+    "output": "\".user.@name\""
+  },
+  {
+    "name": "mapLeafValues",
+    "description": "Maps the terminal (leaf) nodes in the tree.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-tree-functions-mapleafvalues",
+    "source": "%dw 2.0\noutput application/json\n---\n%dw 2.0\n import * from dw::util::Tree\n  output application/json\n  ---\n {\n     user: [{\n         name: \"mariano\",\n         lastName: \"achaval\"\n     }],\n     group: \"data-weave\"\n } mapLeafValues (value, path) -> upper(value)",
+    "output": "{\n   \"user\": [\n     {\n       \"name\": \"MARIANO\",\n       \"lastName\": \"ACHAVAL\"\n     }\n   ],\n   \"group\": \"DATA-WEAVE\"\n }"
+  },
+  {
+    "name": "nodeExists",
+    "description": "Returns true if any node in the tree validates against the specified criteria.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-tree-functions-nodeexists",
+    "source": "%dw 2.0\nimport * from dw::util::Tree\noutput application/json\n---\n {\n     user: [{\n         name: \"mariano\",\n         lastName: \"achaval\",\n         friends: [\n             {\n                 name: \"julian\"\n             },\n             {\n                 name: \"tom\"\n             }\n         ]\n     },\n     {\n         name: \"leandro\",\n         lastName: \"shokida\",\n         friends: [\n             {\n                 name: \"peter\"\n             },\n             {\n                 name: \"robert\"\n             }\n         ]\n\n     }\n     ],\n\n } nodeExists ((value, path) -> path[-1].selector == \"name\" and value == \"peter\")",
+    "output": "true"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "HMACBinary",
+    "description": "Computes an HMAC hash (with a secret cryptographic key) on input content.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-crypto-functions-hmacbinary",
+    "source": "%dw 2.0\nimport dw::Crypto\noutput application/json\n---\n{ \"HMACBinary\" : Crypto::HMACBinary(\"key_re_loca\" as Binary, \"xxxxx\" as Binary) }",
+    "output": "{ \"HMACBinary\": \".-\\ufffd\\ufffd\\u0012\\ufffdۊ\\ufffd\\ufffd\\u0000\\ufffd\\u0012\\u0018R\\ufffd\\ufffd=\\ufffd*\" }"
+  },
+  {
+    "name": "HMACWith",
+    "description": "Computes an HMAC hash (with a secret cryptographic key) on input content,\nthen transforms the result into a lowercase, hexadecimal string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-crypto-functions-hmacwith",
+    "source": "%dw 2.0\nimport dw::Crypto\noutput application/json\n---\n{ \"HMACWith\" : Crypto::HMACWith(\"secret_key\" as Binary, \"Some value to hash\" as Binary, \"HmacSHA256\") }",
+    "output": "{ \"HMACWith\": \"b51b4fe8c4e37304605753272b5b4321f9644a9b09cb1179d7016c25041d1747\" }"
+  },
+  {
+    "name": "MD5",
+    "description": "Computes the MD5 hash and transforms the binary result into a\nhexadecimal lower case string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-crypto-functions-md5",
+    "source": "%dw 2.0\nimport dw::Crypto\noutput application/json\n---\n{ \"md5\" : Crypto::MD5(\"asd\" as Binary) }",
+    "output": "{ \"md5\": \"7815696ecbf1c96e6894b779456d330e\" }"
+  },
+  {
+    "name": "SHA1",
+    "description": "Computes the SHA1 hash and transforms the result into a hexadecimal,\nlowercase string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-crypto-functions-sha1",
+    "source": "%dw 2.0\nimport dw::Crypto\noutput application/json\n---\n{ \"sha1\" : Crypto::SHA1(\"dsasd\" as Binary) }",
+    "output": "{ \"sha1\": \"2fa183839c954e6366c206367c9be5864e4f4a65\" }"
+  },
+  {
+    "name": "hashWith",
+    "description": "Computes the hash value of binary content using a specified algorithm.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-crypto-functions-hashwith",
+    "source": "%dw 2.0\nimport dw::Crypto\noutput application/json\n---\n{ \"md2\" : Crypto::hashWith(\"hello\" as Binary, \"MD2\") }",
+    "output": "{ \"md2\": \"\\ufffd\\u0004ls\\ufffd\\u00031\\ufffdh\\ufffd}8\\u0004\\ufffd\\u0006U\" }"
+  }
+]

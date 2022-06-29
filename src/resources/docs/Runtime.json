@@ -1,0 +1,65 @@
+[
+  {
+    "name": "fail",
+    "description": "Throws an exception with the specified message.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-fail",
+    "source": "%dw 2.0\nimport * from dw::Runtime\nvar result = []\noutput application/json\n---\nif(sizeOf(result) <= 0) fail('Data was empty') else result",
+    "output": "ERROR 2018-07-29 11:47:44,983 ...\n*********************************\nMessage               : \"Data was empty\n..."
+  },
+  {
+    "name": "failIf",
+    "description": "Produces an error with the specified message if the expression in\nthe evaluator returns true, otherwise returns the value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-failif",
+    "source": "%dw 2.0\nimport failIf from dw::Runtime\nvar result = {}\noutput application/json\n---\n{ \"result\" : \"SUCCESS\" failIf (isEmpty(result)) }",
+    "output": "ERROR 2018-07-29 11:56:39,988 ...\n**********************************\nMessage               : \"Failed"
+  },
+  {
+    "name": "locationString",
+    "description": "Returns the location string of a given value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-locationstring",
+    "source": "%dw 2.0\nimport * from dw::Runtime\nvar a = 123\noutput application/json\n---\nlocationString(a)",
+    "output": "\"var a = 123\""
+  },
+  {
+    "name": "orElse",
+    "description": "Returns the result of the orElse if the previous try result failed if not returns the result of the previous",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-orelse",
+    "source": "%dw 2.0\nimport * from dw::Runtime\nvar user = {}\nvar otherUser = {name: \"DW\"}\noutput application/json\n---\n{\n    a: try(() -> user.name!) orElse \"No User Name\",\n    b: try(() -> otherUser.name) orElse \"No User Name\"\n}",
+    "output": "{\n  \"a\": \"No User Name\",\n  \"b\": \"DW\"\n}"
+  },
+  {
+    "name": "orElseTry",
+    "description": "Function to be use with try in order to chain multiple try",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-orelsetry",
+    "source": "%dw 2.0\nimport * from dw::Runtime\nvar user = {}\nvar otherUser = {}\noutput application/json\n---\n{\n    a: try(() -> user.name!) orElseTry otherUser.name!,\n    b: try(() -> user.name!) orElseTry \"No User Name\"\n}",
+    "output": "{\n  \"a\": {\n    \"success\": false,\n    \"error\": {\n      \"kind\": \"KeyNotFoundException\",\n      \"message\": \"There is no key named 'name'\",\n      \"location\": \"\\n9|     a: try(() -> user.name!) orElseTry otherUser.name!,\\n                                          ^^^^^^^^^^^^^^\",\n      \"stack\": [\n        \"main (org::mule::weave::v2::engine::transform:9:40)\"\n      ]\n    }\n  },\n  \"b\": {\n    \"success\": true,\n    \"result\": \"No User Name\"\n  }\n}"
+  },
+  {
+    "name": "prop",
+    "description": "Returns the value of the property with the specified name or null if the\nproperty is not defined.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-prop",
+    "source": "%dw 2.0\nimport * from dw::Runtime\noutput application/dw\n---\n{ \"props\" : prop(\"user.timezone\") }",
+    "output": "{ props: \"America/Los_Angeles\" as String {class: \"java.lang.String\"} }"
+  },
+  {
+    "name": "props",
+    "description": "Returns all the properties configured for Mule runtime.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-props",
+    "source": "%dw 2.0\nimport * from dw::Runtime\noutput application/dw\n---\n{ \"props\" : props() }",
+    "output": "{\n props: {\n   \"java.vendor\": \"Oracle Corporation\" as String {class: \"java.lang.String\"},\n   \"sun.java.launcher\": \"SUN_STANDARD\" as String {class: \"java.lang.String\"},\n   \"sun.management.compiler\": \"HotSpot 64-Bit Tiered Compilers\" as String ..., *    \"os.name\": \"Mac OS X\" as String {class: \"java.lang.String\"},\n   \"sun.boot.class.path\": \"/Library/Java/JavaVirtualMachines/ ...,\n   \"org.glassfish.grizzly.nio.transport.TCPNIOTransport...\": \"1048576\" ...,\n   \"java.vm.specification.vendor\": \"Oracle Corporation\" as String ...,\n   \"java.runtime.version\": \"1.8.0_111-b14\" as String {class: \"java.lang.String\"},\n   \"wrapper.native_library\": \"wrapper\" as String {class: \"java.lang.String\"},\n   \"wrapper.key\": \"XlIl4YartmfEU3oKu7o81kNQbwhveXi-\" as String ...,\n   \"user.name\": \"me\" as String {class: \"java.lang.String\"},\n   \"mvel2.disable.jit\": \"TRUE\" as String {class: \"java.lang.String\"},\n   \"user.language\": \"en\" as String {class: \"java.lang.String\"} ...,\n   \"sun.boot.library.path\": \"/Library/Java/JavaVirtualMachines ...\n   \"xpath.provider\": \"com.mulesoft.licm.DefaultXPathProvider\" ...,\n   \"wrapper.backend\": \"pipe\" as String {class: \"java.lang.String\"},\n   \"java.version\": \"1.8.0_111\" as String {class: \"java.lang.String\"},\n   \"user.timezone\": \"America/Los_Angeles\" as String {class: \"java.lang.String\"},\n   \"java.net.preferIPv4Stack\": \"TRUE\" as String {class: \"java.lang.String\"},\n   \"sun.arch.data.model\": \"64\" as String {class: \"java.lang.String\"},\n   \"java.endorsed.dirs\": \"/Library/Java/JavaVirtualMachines/...,\n   \"sun.cpu.isalist\": \"\" as String {class: \"java.lang.String\"},\n   \"sun.jnu.encoding\": \"UTF-8\" as String {class: \"java.lang.String\"},\n   \"mule.testingMode\": \"\" as String {class: \"java.lang.String\"},\n   \"file.encoding.pkg\": \"sun.io\" as String {class: \"java.lang.String\"},\n   \"file.separator\": \"/\" as String {class: \"java.lang.String\"},\n   \"java.specification.name\": \"Java Platform API Specification\" ...,\n   \"java.class.version\": \"52.0\" as String {class: \"java.lang.String\"},\n   \"jetty.git.hash\": \"82b8fb23f757335bb3329d540ce37a2a2615f0a8\" ...,\n   \"user.country\": \"US\" as String {class: \"java.lang.String\"},\n   \"mule.agent.configuration.folder\": \"/Applications/AnypointStudio.app/ ...,\n   \"log4j.configurationFactory\": \"org.apache.logging.log4j.core...\",\n   \"java.home\": \"/Library/Java/JavaVirtualMachines/...,\n   \"java.vm.info\": \"mixed mode\" as String {class: \"java.lang.String\"},\n   \"wrapper.version\": \"3.5.34-st\" as String {class: \"java.lang.String\"},\n   \"os.version\": \"10.13.4\" as String {class: \"java.lang.String\"},\n   \"org.eclipse.jetty.LEVEL\": \"WARN\" as String {class: \"java.lang.String\"},\n   \"path.separator\": \":\" as String {class: \"java.lang.String\"},\n   \"java.vm.version\": \"25.111-b14\" as String {class: \"java.lang.String\"},\n   \"wrapper.pid\": \"5212\" as String {class: \"java.lang.String\"},\n   \"java.util.prefs.PreferencesFactory\": \"com.mulesoft.licm...\"},\n   \"wrapper.java.pid\": \"5213\" as String {class: \"java.lang.String\"},\n   \"mule.home\": \"/Applications/AnypointStudio.app/...,\n   \"java.awt.printerjob\": \"sun.lwawt.macosx.CPrinterJob\" ...,\n   \"sun.io.unicode.encoding\": \"UnicodeBig\" as String {class: \"java.lang.String\"},\n   \"awt.toolkit\": \"sun.lwawt.macosx.LWCToolkit\" ...,\n   \"org.glassfish.grizzly.nio.transport...\": \"1048576\" ...,\n   \"user.home\": \"/Users/me\" as String {class: \"java.lang.String\"},\n   \"java.specification.vendor\": \"Oracle Corporation\" ...,\n   \"java.library.path\": \"/Applications/AnypointStudio.app/...,\n   \"java.vendor.url\": \"http://java.oracle.com/\" as String ...,\n   \"java.vm.vendor\": \"Oracle Corporation\" as String {class: \"java.lang.String\"},\n   gopherProxySet: \"false\" as String {class: \"java.lang.String\"},\n   \"wrapper.jvmid\": \"1\" as String {class: \"java.lang.String\"},\n   \"java.runtime.name\": \"Java(TM) SE Runtime Environment\" ...,\n   \"mule.encoding\": \"UTF-8\" as String {class: \"java.lang.String\"},\n   \"sun.java.command\": \"org.mule.runtime.module.reboot....\",\n   \"java.class.path\": \"%MULE_LIB%:/Applications/AnypointStudio.app...\",\n   \"log4j2.loggerContextFactory\": \"org.mule.runtime.module.launcher...,\n   \"java.vm.specification.name\": \"Java Virtual Machine Specification\" ,\n   \"java.vm.specification.version\": \"1.8\" as String {class: \"java.lang.String\"},\n   \"sun.cpu.endian\": \"little\" as String {class: \"java.lang.String\"},\n   \"sun.os.patch.level\": \"unknown\" as String {class: \"java.lang.String\"},\n   \"com.ning.http.client.AsyncHttpClientConfig.useProxyProperties\": \"true\" ...,\n   \"wrapper.cpu.timeout\": \"10\" as String {class: \"java.lang.String\"},\n   \"java.io.tmpdir\": \"/var/folders/42/dd73l3rx7qz0n625hr29kty80000gn/T/\" ...,\n   \"anypoint.platform.analytics_base_uri\": ...,\n   \"java.vendor.url.bug\": \"http://bugreport.sun.com/bugreport/\" ...,\n   \"os.arch\": \"x86_64\" as String {class: \"java.lang.String\"},\n   \"java.awt.graphicsenv\": \"sun.awt.CGraphicsEnvironment\" ...,\n   \"mule.base\": \"/Applications/AnypointStudio.app...\",\n   \"java.ext.dirs\": \"/Users/staceyduke/Library/Java/Extensions: ...\"},\n   \"user.dir\": \"/Applications/AnypointStudio.app/...\"},\n   \"line.separator\": \"\\n\" as String {class: \"java.lang.String\"},\n   \"java.vm.name\": \"Java HotSpot(TM) 64-Bit Server VM\" ...,\n   \"org.quartz.scheduler.skipUpdateCheck\": \"true\" ...,\n   \"file.encoding\": \"UTF-8\" as String {class: \"java.lang.String\"},\n   \"mule.forceConsoleLog\": \"\" as String {class: \"java.lang.String\"},\n   \"java.specification.version\": \"1.8\" as String {class: \"java.lang.String\"},\n   \"wrapper.arch\": \"universal\" as String {class: \"java.lang.String\"}\n } as Object {class: \"java.util.Properties\"}"
+  },
+  {
+    "name": "try",
+    "description": "Evaluates the delegate function and returns an object with success: true and result if the delegate function succeeds, or an object with success: false and error if the delegate function throws an exception.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-try",
+    "source": "%dw 2.0\nimport try, fail from dw::Runtime\noutput application/json\nfun randomNumber() =\nif(random() > 0.5)\n  fail(\"This function is failing\")\n else\n  \"OK\"\n---\ntry(() -> randomNumber())",
+    "output": "randomNumber"
+  },
+  {
+    "name": "wait",
+    "description": "Stops the execution for the specified timeout (in milliseconds).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-runtime-functions-wait",
+    "source": "%dw 2.0\nimport * from dw::Runtime\noutput application/json\n---\n{ \"user\" : 1 } wait 2000",
+    "output": "{ \"user\": 1 }"
+  }
+]

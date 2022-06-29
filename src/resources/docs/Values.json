@@ -1,0 +1,37 @@
+[
+  {
+    "name": "attr",
+    "description": "This function creates a PathElement to use for selecting an XML\nattribute and populates the type’s selector field with the given string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-values-functions-attr",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::util::Values\nns ns0 http://acme.com/fo\n---\nattr(ns0 , \"myAttr\")",
+    "output": "{\n   \"kind\": \"Attribute\",\n   \"namespace\": \"http://acme.com/foo\",\n   \"selector\": \"myAttr\"\n }"
+  },
+  {
+    "name": "field",
+    "description": "This function creates a PathElement data type to use for selecting an\nobject field and populates the type’s selector field with the given\nstring.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-values-functions-field",
+    "source": " %dw 2.0\n output application/json\n import * from dw::util::Values\n ns ns0 http://acme.com/foo\n ---\n field(ns0 , \"myFieldName\")",
+    "output": "{\n   \"kind\": \"Object\",\n   \"namespace\": \"http://acme.com/foo\",\n   \"selector\": \"myFieldName\"\n }"
+  },
+  {
+    "name": "index",
+    "description": "This function creates a PathElement data type to use for selecting an\narray element and populates the type’s selector field with the specified\nindex.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-values-functions-index",
+    "source": " %dw 2.0\n output application/json\n import * from dw::util::Values\n ns ns0 http://acme.com/foo\n ---\n index(0)",
+    "output": "{\n   \"kind\": \"Array\",\n   \"namespace\": null,\n   \"selector\": 0\n }"
+  },
+  {
+    "name": "mask",
+    "description": "This mask function replaces all simple elements that match the specified\ncriteria.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-values-functions-mask",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::util::Values\n---\n[{name: \"Peter Parker\", password: \"spiderman\"}, {name: \"Bruce Wayne\", password: \"batman\"}] mask field(\"password\") with \"*****\"",
+    "output": "[\n   {\n     \"name\": \"Peter Parker\",\n     \"password\": \"*****\"\n   },\n   {\n     \"name\": \"Bruce Wayne\",\n     \"password\": \"*****\"\n   }\n ]"
+  },
+  {
+    "name": "update",
+    "description": "This update function updates a field in an object with the specified\nstring value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-values-functions-update",
+    "source": "%dw 2.0\nimport * from dw::util::Values\noutput application/json\n---\n{name: \"Mariano\"} update \"name\" with \"Data Weave\"",
+    "output": "{\n  \"name\": \"Data Weave\"\n}"
+  }
+]

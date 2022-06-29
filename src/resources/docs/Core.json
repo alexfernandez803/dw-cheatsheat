@@ -1,0 +1,471 @@
+[
+  {
+    "name": "++",
+    "description": "Concatenates two values.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-plusplus",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"result\" : [0, 1, 2] ++ [\"a\", \"b\", \"c\"] }",
+    "output": "{ \"result\": [0, 1, 2, \"a\", \"b\", \"c\"] }"
+  },
+  {
+    "name": "--",
+    "description": "Removes specified values from an input value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-minusminus",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"a\" : [0, 1, 1, 2] -- [1,2] }",
+    "output": "{ \"a\": [0] }"
+  },
+  {
+    "name": "abs",
+    "description": "Returns the absolute value of a number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-abs",
+    "source": "%dw 2.0\noutput application/json\n---\n[ abs(-2), abs(2.5), abs(-3.4), abs(3) ]",
+    "output": "[ 2, 2.5, 3.4, 3 ]"
+  },
+  {
+    "name": "avg",
+    "description": "Returns the average of numbers listed in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-avg",
+    "source": "%dw 2.0\noutput application/json\n---\n{ a: avg([1, 1000]), b: avg([1, 2, 3]) }",
+    "output": "{ \"a\": 500.5, \"b\": 2.0 }"
+  },
+  {
+    "name": "ceil",
+    "description": "Rounds a number up to the nearest whole number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-ceil",
+    "source": "%dw 2.0\noutput application/json\n---\n\n[ ceil(1.5), ceil(2.1), ceil(3) ]",
+    "output": "[ 2, 3, 3 ]"
+  },
+  {
+    "name": "contains",
+    "description": "Returns true if an input contains a given value, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-contains",
+    "source": "%dw 2.0\noutput application/json\n---\n[ 1, 2, 3, 4 ] contains(2)",
+    "output": "true"
+  },
+  {
+    "name": "daysBetween",
+    "description": "Returns the number of days between two dates.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-daysbetween",
+    "source": "%dw 2.0\noutput application/json\n---\n{ days : daysBetween('2016-10-01T23:57:59-03:00', '2017-10-01T23:57:59-03:00') }",
+    "output": " { \"days\" : 365 }"
+  },
+  {
+    "name": "distinctBy",
+    "description": "Iterates over an array and returns the unique elements in it.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-distinctby",
+    "source": "%dw 2.0\noutput application/json\n---\n[0, 1, 2, 3, 3, 2, 1, 4] distinctBy (value) -> { \"unique\" : value }",
+    "output": "[ 0, 1, 2, 3, 4]"
+  },
+  {
+    "name": "endsWith",
+    "description": "Returns true if a string ends with a provided substring, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-endswith",
+    "source": "%dw 2.0\noutput application/json\n---\n[ \"Mariano\" endsWith \"no\", \"Mariano\" endsWith \"to\" ]",
+    "output": "[ true, false ]"
+  },
+  {
+    "name": "entriesOf",
+    "description": "Returns an array of key-value pairs that describe the key, value, and any\nattributes in the input object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-entriesof",
+    "source": "%dw 2.0\nvar myVar = read('<xml attr=\"x\"><a>true</a><b>1</b></xml>', 'application/xml')\noutput application/json\n---\n{ \"entriesOf\" : entriesOf(myVar) }",
+    "output": "{\n  \"entriesOf\": [\n    {\n       \"key\": \"xml\",\n       \"value\": {\n         \"a\": \"true\",\n         \"b\": \"1\"\n       },\n       \"attributes\": {\n         \"attr\": \"x\"\n       }\n    }\n  ]\n}"
+  },
+  {
+    "name": "filter",
+    "description": "Iterates over an array and applies an expression that returns matching values.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-filter",
+    "source": "[9,2,3,4,5] filter (value, index) -> (value > 2)",
+    "output": "[9,3,4,5]"
+  },
+  {
+    "name": "filterObject",
+    "description": "Iterates a list of key-value pairs in an object and applies an expression that\nreturns only matching objects, filtering out the rest from the output.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-filterobject",
+    "source": "%dw 2.0\noutput application/json\n---\n{\"a\" : \"apple\", \"b\" : \"banana\"} filterObject ((value) -> value == \"apple\")",
+    "output": "{ \"a\": \"apple\" }"
+  },
+  {
+    "name": "find",
+    "description": "Returns indices of an input that match a specified value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-find",
+    "source": "%dw 2.0\noutput application/json\n---\n[\"Bond\", \"James\", \"Bond\"] find \"Bond\"",
+    "output": "[0,2]"
+  },
+  {
+    "name": "flatMap",
+    "description": "Iterates over each item in an array and flattens the results.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-flatmap",
+    "source": "%dw 2.0\noutput application/json\n---\n[ [3,5], [0.9,5.5] ] flatMap (value, index) -> value",
+    "output": "[ 3, 5, 0.9, 5.5]"
+  },
+  {
+    "name": "flatten",
+    "description": "Turns a set of subarrays (such as [ [1,2,3], [4,5,[6]], [], [null] ]) into a single, flattened array (such as [ 1, 2, 3, 4, 5, [6], null ]).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-flatten",
+    "source": "%dw 2.0\noutput application/json\nvar array1 = [1,2,3]\nvar array2 = [4,5,6]\nvar array3 = [7,8,9]\nvar arrayOfArrays = [array1, array2, array3]\n---\nflatten(arrayOfArrays)",
+    "output": "[ 1,2,3,4,5,6,7,8,9 ]"
+  },
+  {
+    "name": "floor",
+    "description": "Rounds a number down to the nearest whole number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-floor",
+    "source": "%dw 2.0\noutput application/json\n---\n[ floor(1.5), floor(2.2), floor(3) ]",
+    "output": "[ 1, 2, 3]"
+  },
+  {
+    "name": "groupBy",
+    "description": "Returns an object that groups items from an array based on specified\ncriteria, such as an expression or matching selector.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-groupby",
+    "source": "%dw 2.0\noutput application/json\n---\n[\"a\",\"b\",\"c\"] groupBy (item, index) -> index",
+    "output": "{ \"2\": [ \"c\" ], \"1\": [ \"b\" ], \"0\": [ \"a\" ] }"
+  },
+  {
+    "name": "isBlank",
+    "description": "Returns true if the given string is empty or completely composed of whitespace,\nfalse if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isblank",
+    "source": "%dw 2.0\noutput  application/json\nvar someString = \"something\"\nvar nullString = null\n---\n{\n  // checking if the string is blank\n  \"emptyString\" : isBlank(\"\"),\n  \"stringWithSpaces\" : isBlank(\"      \"),\n  \"textString\" : isBlank(someString),\n  \"somePayloadValue\" : isBlank(payload.nonExistingValue),\n  \"nullString\" : isBlank(nullString),\n\n  // checking if the string is not blank\n  \"notEmptyTextString\" : not isBlank(\" 1234\"),\n  \"notEmptyTextStringTwo\" : ! isBlank(\"\")\n}",
+    "output": "{\n  \"emptyString\": true,\n  \"stringWithSpaces\": true,\n  \"textString\": false,\n  \"somePayloadValue\": true,\n  \"nullString\": true,\n  \"notEmptyTextString\": true,\n  \"notEmptyTextStringTwo\": false\n}"
+  },
+  {
+    "name": "isDecimal",
+    "description": "Returns true if the given number contains a decimal, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isdecimal",
+    "source": "%dw 2.0\noutput application/json\n---\n[ isDecimal(1.1), isDecimal(1), isDecimal(\"1.1\") ]",
+    "output": "[ true, false, true ]"
+  },
+  {
+    "name": "isEmpty",
+    "description": "Returns true if the given input value is empty, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isempty",
+    "source": "%dw 2.0\noutput application/json\n---\n[ isEmpty([]), isEmpty([1]) ]",
+    "output": "[ true, false ]"
+  },
+  {
+    "name": "isEven",
+    "description": "Returns true if the number or numeric result of a mathematical operation is\neven, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-iseven",
+    "source": "%dw 2.0\noutput  application/json\n---\n{ \"isEven\" : [ isEven(0), isEven(1), isEven(1+1) ] }",
+    "output": "{ \"isEven\" : [ true, false, true ] }"
+  },
+  {
+    "name": "isInteger",
+    "description": "Returns true if the given number is an integer (which lacks decimals),\nfalse if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isinteger",
+    "source": "%dw 2.0\noutput application/json\n---\n[isInteger(1), isInteger(2.0), isInteger(2.2), isInteger(\"1\")]",
+    "output": "[ true, true, false, true ]"
+  },
+  {
+    "name": "isLeapYear",
+    "description": "Returns true if it receives a date for a leap year, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isleapyear",
+    "source": "%dw 2.0\noutput application/json\n---\n[ isLeapYear(|2016-10-01T23:57:59|), isLeapYear(|2017-10-01T23:57:59|) ]",
+    "output": "[ true, false ]"
+  },
+  {
+    "name": "isOdd",
+    "description": "Returns true if the number or numeric result of a mathematical operation is\nodd, false if not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-isodd",
+    "source": "%dw 2.0\noutput  application/json\n---\n{ \"isOdd\" : [ isOdd(0), isOdd(1), isOdd(2+2) ] }",
+    "output": "{ \"isOdd\": [ false, true, false ] }"
+  },
+  {
+    "name": "joinBy",
+    "description": "Merges an array into a single string value and uses the provided string\nas a separator between each item in the list.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-joinby",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"hyphenate\" : [\"a\",\"b\",\"c\"] joinBy \"-\" }",
+    "output": "{ \"hyphenate\": \"a-b-c\" }"
+  },
+  {
+    "name": "keysOf",
+    "description": "Returns an array of keys from key-value pairs within the input object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-keysof",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"keysOf\" : keysOf({ \"a\" : true, \"b\" : 1}) }",
+    "output": "{ \"keysOf\" : [\"a\",\"b\"] }"
+  },
+  {
+    "name": "log",
+    "description": "Without changing the value of the input, log returns the input as a system\nlog.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-log",
+    "source": "%dw 2.0\noutput application/json\n---\nlog(\"WARNING\", \"Houston, we have a problem.\")",
+    "output": "WARNING - \"Houston, we have a problem.\""
+  },
+  {
+    "name": "lower",
+    "description": "Returns the provided string in lowercase characters.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-lower",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"name\" : lower(\"MULESOFT\") }",
+    "output": "{ \"name\": \"mulesoft\" }"
+  },
+  {
+    "name": "map",
+    "description": "Iterates over items in an array and outputs the results into a new array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-map",
+    "source": "%dw 2.0\noutput application/json\n---\n[\"jose\", \"pedro\", \"mateo\"] map (value, index) -> { (index) : value}",
+    "output": "[ { \"0\": \"jose\" }, { \"1\": \"pedro\" }, { \"2\": \"mateo\" } ]"
+  },
+  {
+    "name": "mapObject",
+    "description": "Iterates over an object using a mapper that acts on keys, values, or\nindices of that object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-mapobject",
+    "source": "%dw 2.0\noutput application/json\n---\n{\"a\":\"b\",\"c\":\"d\"} mapObject (value,key,index) -> { (index) : { (value):key} }",
+    "output": "{ \"0\": { \"b\": \"a\" }, \"1\": { \"d\": \"c\" } }"
+  },
+  {
+    "name": "match",
+    "description": "Uses a Java regular expression (regex) to match a string and then separates it into\ncapture groups. Returns the results in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-match",
+    "source": "%dw 2.0\noutput application/json\n---\n\"me@mulesoft.com\" match(/([a-z]*)@([a-z]*).com/)",
+    "output": "[\n  \"me@mulesoft.com\",\n  \"me\",\n  \"mulesoft\"\n]"
+  },
+  {
+    "name": "matches",
+    "description": "Checks if an expression matches the entire input string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-matches",
+    "source": "%dw 2.0\noutput application/json\n---\n[ (\"admin123\" matches /a.*\\d+/), (\"admin123\" matches /^b.+/) ]",
+    "output": "[ true, false ]"
+  },
+  {
+    "name": "max",
+    "description": "Returns the highest Comparable value in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-max",
+    "source": "%dw 2.0\noutput application/json\n---\n{ a: max([1, 1000]), b: max([1, 2, 3]), c: max([1.5, 2.5, 3.5]) }",
+    "output": "{ \"a\": 1000, \"b\": 3, \"c\": 3.5 }"
+  },
+  {
+    "name": "maxBy",
+    "description": "Iterates over an array and returns the highest value of\nComparable elements from it.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-maxby",
+    "source": "%dw 2.0\noutput  application/json\n---\n[ { \"a\" : 1 }, { \"a\" : 3 }, { \"a\" : 2 } ] maxBy ((item) -> item.a)",
+    "output": "{ \"a\" : 3 }"
+  },
+  {
+    "name": "min",
+    "description": "Returns the lowest Comparable value in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-min",
+    "source": "%dw 2.0\noutput application/json\n---\n{ a: min([1, 1000]), b: min([1, 2, 3]), c: min([1.5, 2.5, 3.5]) }",
+    "output": "{ \"a\": 1, \"b\": 1, \"c\": 1.5 }"
+  },
+  {
+    "name": "minBy",
+    "description": "Iterates over an array to return the lowest value of\ncomparable elements from it.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-minby",
+    "source": "%dw 2.0\noutput  application/json\n---\n[ { \"a\" : 1 }, { \"a\" : 2 }, { \"a\" : 3 } ] minBy (item) -> item.a",
+    "output": "{ \"a\" : 1 }"
+  },
+  {
+    "name": "mod",
+    "description": "Returns the modulo (the remainder after dividing the dividend\nby the divisor).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-mod",
+    "source": "%dw 2.0\noutput application/json\n---\n[ (3 mod 2), (4 mod 2), (2.2 mod 2) ]",
+    "output": "[ 1, 0, 0.2]"
+  },
+  {
+    "name": "namesOf",
+    "description": "Returns an array of strings with the names of all the keys within the given object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-namesof",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"namesOf\" : namesOf({ \"a\" : true, \"b\" : 1}) }",
+    "output": "{ \"namesOf\" : [\"a\",\"b\"] }"
+  },
+  {
+    "name": "native",
+    "description": "Internal method used to indicate that a function implementation is not\nwritten in DataWeave but in Scala.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-native",
+    "source": "",
+    "output": ""
+  },
+  {
+    "name": "now",
+    "description": "Returns a DateTime value for the current date and time.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-now",
+    "source": "%dw 2.0\noutput application/json\n---\n{\n   nowCalled: now(),\n   nowCalledSpecificTimeZone: now() >> \"America/New_York\"\n}",
+    "output": "{\n  \"nowCalled\": \"2019-08-26T13:32:10.64-07:00\",\n  \"nowCalledSpecificTimeZone\": \"2019-08-26T16:32:10.643-04:00\"\n}"
+  },
+  {
+    "name": "orderBy",
+    "description": "Reorders the elements of an input using criteria that acts on selected\nelements of that input.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-orderby",
+    "source": "%dw 2.0\noutput application/json\n---\n[{ letter: \"e\" }, { letter: \"d\" }] orderBy($.letter)",
+    "output": "[\n  {\n    \"letter\": \"d\"\n  },\n  {\n    \"letter\": \"e\"\n  }\n]"
+  },
+  {
+    "name": "pluck",
+    "description": "Useful for mapping an object into an array, pluck iterates over an object\nand returns an array of keys, values, or indices from the object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-pluck",
+    "source": "%dw 2.0\noutput application/json\n---\n{\"a\":\"b\",\"c\":\"d\"} pluck (value,key,index) -> { (index) : { (value):key} }",
+    "output": "[ { \"0\": { \"b\": \"a\" } }, { \"1\": { \"d\": \"c\" } } ]"
+  },
+  {
+    "name": "pow",
+    "description": "Raises the value of a base number to the specified power.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-pow",
+    "source": "%dw 2.0\noutput application/json\n---\n[ (2 pow 3), (3 pow 2), (7 pow 3) ]",
+    "output": "[ 8, 9, 343 ]"
+  },
+  {
+    "name": "random",
+    "description": "Returns a pseudo-random number greater than or equal to 0.0 and less than 1.0.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-random",
+    "source": "%dw 2.0\noutput application/json\n---\n{ price: random() * 1000 }",
+    "output": "{ \"price\": 65.02770292248383 }"
+  },
+  {
+    "name": "randomInt",
+    "description": "Returns a pseudo-random whole number from 0 to the specified number\n(exclusive).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-randomint",
+    "source": "%dw 2.0\noutput application/json\n---\n{ price: randomInt(1000) }",
+    "output": "{ \"price\": 442.0 }"
+  },
+  {
+    "name": "read",
+    "description": "Reads a string or binary and returns parsed content.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-read",
+    "source": "%dw 2.0\noutput application/xml\n---\nread('{ \"hello\" : \"world\" }','application/json')",
+    "output": "<?xml version='1.0' encoding='UTF-8'?><hello>world</hello>"
+  },
+  {
+    "name": "readUrl",
+    "description": "Similar to the read function. However, readURL accepts a URL, including\na classpath-based URL.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-readurl",
+    "source": "%dw 2.0\noutput application/json\n---\nreadUrl(\"https://jsonplaceholder.typicode.com/posts/1\", \"application/json\")",
+    "output": "{ \"userId\": 1, \"id\": 1, \"title\": \"sunt aut ...\", \"body\": \"quia et ...\" }"
+  },
+  {
+    "name": "reduce",
+    "description": "Applies a reduction expression to the elements in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-reduce",
+    "source": "%dw 2.0\noutput application/json\n---\n[2, 3] reduce ($ + $$)",
+    "output": "5"
+  },
+  {
+    "name": "replace",
+    "description": "Performs string replacement.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-replace",
+    "source": "%dw 2.0\noutput application/json\n---\n[\"123-456-7890\" replace /.*-/ with(\"\"), \"abc123def\" replace /[b13e]/ with(\"-\")]",
+    "output": "[ 7890, \"a-c-2-d-f\" ]"
+  },
+  {
+    "name": "round",
+    "description": "Rounds a number up or down to the nearest whole number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-round",
+    "source": "%dw 2.0\noutput application/json\n---\n[ round(1.2), round(4.6), round(3.5) ]",
+    "output": "[ 1, 5, 4 ]"
+  },
+  {
+    "name": "scan",
+    "description": "Returns an array with all of the matches found in an input string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-scan",
+    "source": "%dw 2.0\noutput application/json\n---\nflatten(\"www.mulesoft.com\" scan(/([w]*).([a-z]*).([a-z]*)/))",
+    "output": "[ \"www.mulesoft.com\", \"www\", \"mulesoft\", \"com\" ]"
+  },
+  {
+    "name": "sizeOf",
+    "description": "Returns the number of elements in an array. It returns 0 if the array\nis empty.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-sizeof",
+    "source": "%dw 2.0\noutput application/json\n---\nsizeOf([ \"a\", \"b\", \"c\"])",
+    "output": "3"
+  },
+  {
+    "name": "splitBy",
+    "description": "Splits a string into a string array based on a value that matches part of that\nstring. It filters out the matching part from the returned array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-splitby",
+    "source": "%dw 2.0\noutput application/json\n---\n\"192.88.99.0/24\" splitBy(/[.\\/]/)",
+    "output": "[\"192\", \"88\", \"99\", \"0\", \"24\"]"
+  },
+  {
+    "name": "sqrt",
+    "description": "Returns the square root of a number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-sqrt",
+    "source": "%dw 2.0\noutput application/json\n---\n[ sqrt(4), sqrt(25), sqrt(100) ]",
+    "output": "[ 2.0, 5.0, 10.0 ]"
+  },
+  {
+    "name": "startsWith",
+    "description": "Returns true or false depending on whether the input string starts with a\nmatching prefix.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-startswith",
+    "source": "%dw 2.0\noutput application/json\n---\n[ \"Mari\" startsWith(\"Mar\"), \"Mari\" startsWith(\"Em\") ]",
+    "output": "[ true, false ]"
+  },
+  {
+    "name": "sum",
+    "description": "Returns the sum of numeric values in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-sum",
+    "source": "%dw 2.0\noutput application/json\n---\nsum([1, 2, 3])",
+    "output": "6"
+  },
+  {
+    "name": "to",
+    "description": "Returns a range with the specified boundaries.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-to",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"myRange\": 1 to 10 }",
+    "output": "{ \"myRange\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }"
+  },
+  {
+    "name": "trim",
+    "description": "Removes any blank spaces from the beginning and end of a string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-trim",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"trim\": trim(\"   my really long  text     \") }",
+    "output": "{ \"trim\": \"my really long  text\" }"
+  },
+  {
+    "name": "typeOf",
+    "description": "Returns the type of a value.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-typeof",
+    "source": "%dw 2.0\noutput application/json\n---\n[ typeOf(\"A b\"), typeOf([1,2]), typeOf(34), typeOf(true), typeOf({ a : 5 }) ]",
+    "output": "[ \"String\", \"Array\", \"Number\", \"Boolean\", \"Object\" ]"
+  },
+  {
+    "name": "unzip",
+    "description": "Performs the opposite of zip. It takes an array of arrays as input.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-unzip",
+    "source": "%dw 2.0\noutput application/json\n---\nunzip([ [0,\"a\"], [1,\"b\"], [2,\"c\"],[ 3,\"d\"] ])",
+    "output": "[ [ 0, 1, 2, 3 ], [ \"a\", \"b\", \"c\", \"d\" ] ]"
+  },
+  {
+    "name": "upper",
+    "description": "Returns the provided string in uppercase characters.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-upper",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"name\" : upper(\"mulesoft\") }",
+    "output": "{ \"name\": \"MULESOFT\" }"
+  },
+  {
+    "name": "uuid",
+    "description": "Returns a v4 UUID using random numbers as the source.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-uuid",
+    "source": "\"7cc64d24-f2ad-4d43-8893-fa24a0789a99\"",
+    "output": ""
+  },
+  {
+    "name": "valuesOf",
+    "description": "Returns an array of the values from key-value pairs in an object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-valuesof",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"valuesOf\" : valuesOf({a: true, b: 1}) }",
+    "output": "{ \"valuesOf\" : [true,1] }"
+  },
+  {
+    "name": "with",
+    "description": "When used with replace, with passes a replacement string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-with",
+    "source": "%dw 2.0\noutput application/json\n---\n{ \"ssn\" : \"987-65-4321\" replace /[0-9]/ with(\"x\") }",
+    "output": "{ \"ssn\": \"xxx-xx-xxxx\" }"
+  },
+  {
+    "name": "write",
+    "description": "Writes a value as a string or binary in a supported format.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-write",
+    "source": "%dw 2.0\noutput application/json\n---\n{ hello : write(\"world\", \"text/plain\") }",
+    "output": "{ \"hello\": \"world\" }"
+  },
+  {
+    "name": "xsiType",
+    "description": "Creates a xsi:type type attribute. This method returns an object, so it must be used with dynamic attributes.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-xsitype",
+    "source": "%dw 2.0\noutput application/xml\nns acme http://acme.com\n---\n  {\n      user @((xsiType(\"user\", acme))): {\n          name: \"Peter\",\n          lastName: \"Parker\"\n      }\n  }",
+    "output": "<?xml version='1.0' encoding='UTF-8'?>\n <user xsi:type=\"acme:user\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:acme=\"http://acme.com\">\n     <name>Peter</name>\n     <lastName>Parker</lastName>\n </user>"
+  },
+  {
+    "name": "zip",
+    "description": "Merges elements from two arrays into an array of arrays.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-core-functions-zip",
+    "source": "%dw 2.0\noutput application/json\n---\n[0,1] zip [\"a\",\"b\"]",
+    "output": "[ [0,\"a\"], [1,\"b\"] ]"
+  }
+]

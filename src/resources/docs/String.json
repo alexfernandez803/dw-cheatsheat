@@ -1,0 +1,205 @@
+[
+  {
+    "name": "appendIfMissing",
+    "description": "Appends the suffix to the end of the text if the text does not already\nends with the suffix.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-appendifmissing",
+    "source": "%dw 2.0\nimport appendIfMissing from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": appendIfMissing(null, \"\"),\n  \"b\": appendIfMissing(\"abc\", \"\"),\n  \"c\": appendIfMissing(\"\", \"xyz\") ,\n  \"d\": appendIfMissing(\"abc\", \"xyz\") ,\n  \"e\": appendIfMissing(\"abcxyz\", \"xyz\")\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"abc\",\n  \"c\": \"xyz\",\n  \"d\": \"abcxyz\",\n  \"e\": \"abcxyz\"\n}"
+  },
+  {
+    "name": "camelize",
+    "description": "Returns a string in camel case based on underscores in the string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-camelize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\" : camelize(\"customer_first_name\"),\n  \"b\" : camelize(\"_name_starts_with_underscore\")\n}",
+    "output": "{\n   \"a\": \"customerFirstName\",\n   \"b\": \"nameStartsWithUnderscore\"\n }"
+  },
+  {
+    "name": "capitalize",
+    "description": "Capitalizes the first letter of each word in a string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-capitalize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\" : capitalize(\"customer\"),\n  \"b\" : capitalize(\"customer_first_name\"),\n  \"c\" : capitalize(\"customer NAME\"),\n  \"d\" : capitalize(\"customerName\")\n}",
+    "output": "{\n  \"a\": \"Customer\",\n  \"b\": \"Customer First Name\",\n  \"c\": \"Customer Name\",\n  \"d\": \"Customer Name\"\n}"
+  },
+  {
+    "name": "charCode",
+    "description": "Returns the Unicode for the first character in an input string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-charcode",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"charCode\" : charCode(\"Mule\")\n}",
+    "output": "{ \"charCode\" : 77 }"
+  },
+  {
+    "name": "charCodeAt",
+    "description": "Returns the Unicode for a character at the specified index.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-charcodeat",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"charCodeAt\" : charCodeAt(\"MuleSoft\", 1)\n}",
+    "output": "{ \"charCodeAt\": 117 }"
+  },
+  {
+    "name": "dasherize",
+    "description": "Replaces spaces, underscores, and camel-casing in a string with dashes\n(hyphens).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-dasherize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\" : dasherize(\"customer\"),\n  \"b\" : dasherize(\"customer_first_name\"),\n  \"c\" : dasherize(\"customer NAME\"),\n  \"d\" : dasherize(\"customerName\")\n}",
+    "output": "{\n  \"a\": \"customer\",\n  \"b\": \"customer-first-name\",\n  \"c\": \"customer-name\",\n  \"d\": \"customer-name\"\n}"
+  },
+  {
+    "name": "fromCharCode",
+    "description": "Returns a character that matches the specified Unicode.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-fromcharcode",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"fromCharCode\" : fromCharCode(117)\n}",
+    "output": "{ \"fromCharCode\": \"u\" }"
+  },
+  {
+    "name": "isAlpha",
+    "description": "Checks if the text contains only Unicode digits. A decimal point is not a Unicode digit and returns false.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-isalpha",
+    "source": "%dw 2.0\nimport isAlpha from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isAlpha(null),\n  \"b\": isAlpha(\"\"),\n  \"c\": isAlpha(\"  \"),\n  \"d\": isAlpha(\"abc\"),\n  \"e\": isAlpha(\"ab2c\"),\n  \"f\": isAlpha(\"ab-c\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": false,\n  \"c\": false,\n  \"d\": true,\n  \"e\": false,\n  \"f\": false\n}"
+  },
+  {
+    "name": "isAlphanumeric",
+    "description": "Checks if the text contains only Unicode letters or digits.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-isalphanumeric",
+    "source": "%dw 2.0\nimport isAlphanumeric from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isAlphanumeric(null),\n  \"b\": isAlphanumeric(\"\"),\n  \"c\": isAlphanumeric(\"  \"),\n  \"d\": isAlphanumeric(\"abc\"),\n  \"e\": isAlphanumeric(\"ab c\"),\n  \"f\": isAlphanumeric(\"ab2c\"),\n  \"g\": isAlphanumeric(\"ab-c\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": false,\n  \"c\": false,\n  \"d\": true,\n  \"e\": false,\n  \"f\": true,\n  \"g\": false\n}"
+  },
+  {
+    "name": "isLowerCase",
+    "description": "Checks if the text contains only lowercase characters.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-islowercase",
+    "source": "%dw 2.0\nimport isLowerCase from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isLowerCase(null),\n  \"b\": isLowerCase(\"\"),\n  \"c\": isLowerCase(\"  \"),\n  \"d\": isLowerCase(\"abc\"),\n  \"e\": isLowerCase(\"aBC\"),\n  \"f\": isLowerCase(\"a c\"),\n  \"g\": isLowerCase(\"a1c\"),\n  \"h\": isLowerCase(\"a/c\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": false,\n  \"c\": false,\n  \"d\": true,\n  \"e\": false,\n  \"f\": false,\n  \"g\": false,\n  \"h\": false\n}"
+  },
+  {
+    "name": "isNumeric",
+    "description": "Checks if the text contains only Unicode digits.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-isnumeric",
+    "source": "%dw 2.0\nimport isNumeric from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isNumeric(null),\n  \"b\": isNumeric(\"\"),\n  \"c\": isNumeric(\"  \"),\n  \"d\": isNumeric(\"123\"),\n  \"e\": isNumeric(\"१२३\"),\n  \"f\": isNumeric(\"12 3\"),\n  \"g\": isNumeric(\"ab2c\"),\n  \"h\": isNumeric(\"12-3\"),\n  \"i\": isNumeric(\"12.3\"),\n  \"j\": isNumeric(\"-123\"),\n  \"k\": isNumeric(\"+123\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": false,\n  \"c\": false,\n  \"d\": true,\n  \"e\": true,\n  \"f\": false,\n  \"g\": false,\n  \"h\": false,\n  \"i\": false,\n  \"j\": false,\n  \"k\": false\n}"
+  },
+  {
+    "name": "isUpperCase",
+    "description": "Checks if the text contains only uppercase characters.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-isuppercase",
+    "source": "%dw 2.0\nimport isUpperCase from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isUpperCase(null),\n  \"b\": isUpperCase(\"\"),\n  \"c\": isUpperCase(\"  \"),\n  \"d\": isUpperCase(\"ABC\"),\n  \"e\": isUpperCase(\"aBC\"),\n  \"f\": isUpperCase(\"A C\"),\n  \"g\": isUpperCase(\"A1C\"),\n  \"h\": isUpperCase(\"A/C\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": false,\n  \"c\": false,\n  \"d\": true,\n  \"e\": false,\n  \"f\": false,\n  \"g\": false,\n  \"h\": false\n}"
+  },
+  {
+    "name": "isWhitespace",
+    "description": "Checks if the text contains only whitespace.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-iswhitespace",
+    "source": "%dw 2.0\nimport isWhitespace from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": isWhitespace(null),\n  \"b\": isWhitespace(\"\"),\n  \"c\": isWhitespace(\"  \"),\n  \"d\": isWhitespace(\"abc\"),\n  \"e\": isWhitespace(\"ab2c\"),\n  \"f\": isWhitespace(\"ab-c\")\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": true,\n  \"c\": true,\n  \"d\": false,\n  \"e\": false,\n  \"f\": false\n}"
+  },
+  {
+    "name": "leftPad",
+    "description": "The specified text is left-padded to the size using the padText.\nBy default padText is \" \".",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-leftpad",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n   \"a\": leftPad(null, 3),\n   \"b\": leftPad(\"\", 3),\n   \"c\": leftPad(\"bat\", 5),\n   \"d\": leftPad(\"bat\", 3),\n   \"e\": leftPad(\"bat\", -1)\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"   \",\n  \"c\": \"  bat\",\n  \"d\": \"bat\",\n  \"e\": \"bat\"\n}"
+  },
+  {
+    "name": "ordinalize",
+    "description": "Returns a number as an ordinal, such as 1st or 2nd.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-ordinalize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\" : ordinalize(1),\n  \"b\": ordinalize(2),\n  \"c\": ordinalize(5),\n  \"d\": ordinalize(103)\n}",
+    "output": "{\n   \"a\": \"1st\",\n   \"b\": \"2nd\",\n   \"c\": \"5th\",\n   \"d\": \"103rd\"\n}"
+  },
+  {
+    "name": "pluralize",
+    "description": "Pluralizes a singular string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-pluralize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n { \"pluralize\" : pluralize(\"box\") }",
+    "output": "{ \"pluralize\" : \"boxes\" }"
+  },
+  {
+    "name": "prependIfMissing",
+    "description": "Prepends the prefix to the beginning of the string if the text does not\nalready start with that prefix.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-prependifmissing",
+    "source": "%dw 2.0\nimport prependIfMissing from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": prependIfMissing(null, \"\"),\n  \"b\": prependIfMissing(\"abc\", \"\"),\n  \"c\": prependIfMissing(\"\", \"xyz\"),\n  \"d\": prependIfMissing(\"abc\", \"xyz\"),\n  \"e\": prependIfMissing(\"xyzabc\", \"xyz\")\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"abc\",\n  \"c\": \"xyz\",\n  \"d\": \"xyzabc\",\n  \"e\": \"xyzabc\"\n}"
+  },
+  {
+    "name": "repeat",
+    "description": "Repeats a text the number of specified times.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-repeat",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": repeat(\"e\", 0),\n  \"b\": repeat(\"e\", 3),\n  \"c\": repeat(\"e\", -2)\n}",
+    "output": "{\n  \"a\": \"\",\n  \"b\": \"eee\",\n  \"c\": \"\"\n}"
+  },
+  {
+    "name": "rightPad",
+    "description": "The specified text is right-padded to the size using the padText.\nBy default padText is \" \".",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-rightpad",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": rightPad(null, 3),\n  \"b\": rightPad(\"\", 3),\n  \"c\": rightPad(\"bat\", 5),\n  \"d\": rightPad(\"bat\", 3),\n  \"e\": rightPad(\"bat\", -1)\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"   \",\n  \"c\": \"bat  \",\n  \"d\": \"bat\",\n  \"e\": \"bat\"\n}"
+  },
+  {
+    "name": "singularize",
+    "description": "Converts a plural string to its singular form.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-singularize",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{ \"singularize\" : singularize(\"boxes\") }",
+    "output": "{ \"singularize\" : \"box\" }"
+  },
+  {
+    "name": "substringAfter",
+    "description": "Gets the substring after the first occurrence of a separator. The separator\nis not returned.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-substringafter",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": substringAfter(null, \"'\"),\n  \"b\": substringAfter(\"\", \"-\"),\n  \"c\": substringAfter(\"abc\", \"b\"),\n  \"d\": substringAfter(\"abcba\", \"b\"),\n  \"e\": substringAfter(\"abc\", \"d\"),\n  \"f\": substringAfter(\"abc\", \"\")\n}",
+    "output": "{\n\n  \"a\": null,\n  \"b\": \"\",\n  \"c\": \"c\",\n  \"d\": \"cba\",\n  \"e\": \"\",\n  \"f\": \"bc\"\n}"
+  },
+  {
+    "name": "substringAfterLast",
+    "description": "Gets the substring after the last occurrence of a separator. The separator\nis not returned.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-substringafterlast",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": substringAfterLast(null, \"'\"),\n  \"b\": substringAfterLast(\"\", \"-\"),\n  \"c\": substringAfterLast(\"abc\", \"b\"),\n  \"d\": substringAfterLast(\"abcba\", \"b\"),\n  \"e\": substringAfterLast(\"abc\", \"d\"),\n  \"f\": substringAfterLast(\"abc\", \"\")\n}",
+    "output": "{\n \"a\": null,\n \"b\": \"\",\n \"c\": \"c\",\n \"d\": \"a\",\n \"e\": \"\",\n \"f\": null\n}"
+  },
+  {
+    "name": "substringBefore",
+    "description": "Gets the substring before the first occurrence of a separator. The separator\nis not returned.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-substringbefore",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": substringBefore(null, \"'\"),\n  \"b\": substringBefore(\"\", \"-\"),\n  \"c\": substringBefore(\"abc\", \"b\"),\n  \"d\": substringBefore(\"abc\", \"c\"),\n  \"e\": substringBefore(\"abc\", \"d\"),\n  \"f\": substringBefore(\"abc\", \"\")\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"\",\n  \"c\": \"a\",\n  \"d\": \"ab\",\n  \"e\": \"\",\n  \"f\": \"\"\n}"
+  },
+  {
+    "name": "substringBeforeLast",
+    "description": "Gets the substring before the last occurrence of a separator. The separator\nis not returned.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-substringbeforelast",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": substringBeforeLast(null, \"'\"),\n  \"b\": substringBeforeLast(\"\", \"-\"),\n  \"c\": substringBeforeLast(\"abc\", \"b\"),\n  \"d\": substringBeforeLast(\"abcba\", \"b\"),\n  \"e\": substringBeforeLast(\"abc\", \"d\"),\n  \"f\": substringBeforeLast(\"abc\", \"\")\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"\",\n  \"c\": \"a\",\n  \"d\": \"abc\",\n  \"e\": \"\",\n  \"f\": \"ab\"\n}"
+  },
+  {
+    "name": "underscore",
+    "description": "Replaces hyphens, spaces, and camel-casing in a string with underscores.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-underscore",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n   \"a\" : underscore(\"customer\"),\n   \"b\" : underscore(\"customer-first-name\"),\n   \"c\" : underscore(\"customer NAME\"),\n   \"d\" : underscore(\"customerName\")\n}",
+    "output": "{\n   \"a\": \"customer\",\n   \"b\": \"customer_first_name\",\n   \"c\": \"customer_name\",\n   \"d\": \"customer_name\"\n}"
+  },
+  {
+    "name": "unwrap",
+    "description": "Unwraps a given text from a wrapper text.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-unwrap",
+    "source": "%dw 2.0\nimport unwrap from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": unwrap(null, \"\"),\n  \"b\": unwrap(null, '\\0'),\n  \"c\": unwrap(\"'abc'\", \"'\"),\n  \"d\": unwrap(\"AABabcBAA\", 'A'),\n  \"e\": unwrap(\"A\", '#'),\n  \"f\": unwrap(\"#A\", '#'),\n  \"g\": unwrap(\"A#\", '#')\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": null,\n  \"c\": \"abc\",\n  \"d\": \"ABabcBA\",\n  \"e\": \"A\",\n  \"f\": \"A#\",\n  \"g\": \"#A\"\n}"
+  },
+  {
+    "name": "withMaxSize",
+    "description": "Checks that the string length is no larger than the specified maxLength.\nIf the string’s length is larger than the maxLength, the function cuts\ncharacters from left to right, until the string length meets the length limit.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-withmaxsize",
+    "source": "%dw 2.0\nimport withMaxSize from dw::core::Strings\noutput application/json\n---\n{\n   a: \"123\" withMaxSize 10,\n   b: \"123\" withMaxSize 3,\n   c: \"123\" withMaxSize 2,\n   d: \"\" withMaxSize 0,\n   e: null withMaxSize 23,\n}",
+    "output": "{\n  \"a\": \"123\",\n  \"b\": \"123\",\n  \"c\": \"12\",\n  \"d\": \"\",\n  \"e\": null\n}"
+  },
+  {
+    "name": "wrapIfMissing",
+    "description": "Wraps text with wrapper if that wrapper is missing from the start or\nend of the given string.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-wrapifmissing",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n {\n   \"a\": wrapIfMissing(null, \"'\"),\n   \"b\": wrapIfMissing(\"\", \"'\"),\n   \"c\": wrapIfMissing(\"ab\", \"x\"),\n   \"d\": wrapIfMissing(\"'ab'\", \"'\"),\n   \"e\": wrapIfMissing(\"/\", '/'),\n   \"f\": wrapIfMissing(\"a/b/c\", '/'),\n   \"g\": wrapIfMissing(\"/a/b/c\", '/'),\n   \"h\": wrapIfMissing(\"a/b/c/\", '/')\n }",
+    "output": "{\n   \"a\": null,\n   \"b\": \"'\",\n   \"c\": \"xabx\",\n   \"d\": \"'ab'\",\n   \"e\": \"/\",\n   \"f\": \"/a/b/c/\",\n   \"g\": \"/a/b/c/\",\n   \"h\": \"/a/b/c/\"\n }"
+  },
+  {
+    "name": "wrapWith",
+    "description": "Wraps the specified text with the given wrapper.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-strings-functions-wrapwith",
+    "source": "%dw 2.0\nimport * from dw::core::Strings\noutput application/json\n---\n{\n  \"a\": wrapWith(null, \"'\"),\n  \"b\": wrapWith(\"\", \"'\"),\n  \"c\": wrapWith(\"ab\", \"x\"),\n  \"d\": wrapWith(\"'ab'\", \"'\"),\n  \"e\": wrapWith(\"ab\", \"'\")\n}",
+    "output": "{\n  \"a\": null,\n  \"b\": \"''\",\n  \"c\": \"xabx\",\n  \"d\": \"''ab''\",\n  \"e\": \"'ab'\"\n}"
+  }
+]

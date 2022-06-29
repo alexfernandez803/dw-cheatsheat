@@ -1,0 +1,135 @@
+[
+  {
+    "name": "countBy",
+    "description": "Counts the elements in an array that match the results of a function.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-countby",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n output application/json\n ---\n{ \"countBy\" : [1, 2, 3, 4] countBy (($ mod 2) == 0) }",
+    "output": "{ \"countBy\": 2 }"
+  },
+  {
+    "name": "divideBy",
+    "description": "Breaks up an array into sub-arrays that contain the\nspecified number of elements.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-divideby",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\n---\n{\n  \"divideBy\" : [\n      { \"divideBy2\" : [1, 2, 3, 4, 5] divideBy 2 },\n      { \"divideBy2\" : [1, 2, 3, 4, 5, 6] divideBy 2 },\n      { \"divideBy3\" : [1, 2, 3, 4, 5] divideBy 3 }\n  ]\n}",
+    "output": "{\n \"divideBy\": [\n  {\n    \"divideBy2\": [\n      [ 1, 2 ],\n      [ 3, 4 ],\n      [ 5 ]\n    ]\n  },\n  {\n    \"divideBy2\": [\n      [ 1, 2 ],\n      [ 3, 4 ],\n      [ 5, 6 ]\n    ]\n  },\n    {\n      \"divideBy3\": [\n        [ 1, 2, 3 ],\n        [ 4, 5 ]\n      ]\n    }\n ]\n}"
+  },
+  {
+    "name": "drop",
+    "description": "Drops the first n elements. It returns the original array when n <= 0\nand an empty array when n > sizeOf(array).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-drop",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n var users = [\"Mariano\", \"Leandro\", \"Julian\"]\n output application/json\n ---\n drop(users, 2)",
+    "output": "[\n  \"Julian\"\n]"
+  },
+  {
+    "name": "dropWhile",
+    "description": "Drops elements from the array while the condition is met but stops the selection process\nwhen it reaches an element that fails to satisfy the condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-dropwhile",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar arr = [0,1,3,2,1]\n---\narr dropWhile $ < 3",
+    "output": "[\n  3,\n  2,\n  1\n]"
+  },
+  {
+    "name": "every",
+    "description": "Returns true if every element in the array matches the condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-every",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\nvar arr0 = [] as Array<Number>\noutput application/json\n---\n{ \"results\" : [\n     \"ok\" : [\n        [1,1,1] every ($ == 1),\n        [1] every ($ == 1)\n     ],\n     \"err\" : [\n        [1,2,3] every ((log('should stop at 2 ==', $) mod 2) == 1),\n        [1,1,0] every ($ == 1),\n        [0,1,1,0] every (log('should stop at 0 ==', $) == 1),\n        [1,2,3] every ($ == 1),\n        arr0 every true,\n     ]\n   ]\n }",
+    "output": "{\n   \"results\": [\n     {\n       \"ok\": [ true, true ]\n     },\n     {\n       \"err\": [ false, false, false, false, false ]\n     }\n   ]\n }"
+  },
+  {
+    "name": "firstWith",
+    "description": "Returns the first element that satisfies the condition, or returns null if no\nelement meets the condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-firstwith",
+    "source": "%dw 2.0\noutput application/json\nimport firstWith from dw::core::Arrays\nvar users = [{name: \"Mariano\", lastName: \"Achaval\"}, {name: \"Ana\", lastName: \"Felisatti\"}, {name: \"Mariano\", lastName: \"de Sousa\"}]\n---\n{\n  a: users firstWith ((user, index) -> user.name == \"Mariano\"),\n  b: users firstWith ((user, index) -> user.name == \"Peter\")\n}",
+    "output": "{\n  \"a\": {\n    \"name\": \"Mariano\",\n    \"lastName\": \"Achaval\"\n  },\n  \"b\": null\n}"
+  },
+  {
+    "name": "indexOf",
+    "description": "Returns the index of the first occurrence of an element within the array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-indexof",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar users = [\"Mariano\", \"Leandro\", \"Julian\"]\n---\nindexOf(users, \"Julian\")",
+    "output": "2"
+  },
+  {
+    "name": "indexWhere",
+    "description": "Returns the index of the first occurrence of an element that matches a\ncondition within the array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-indexwhere",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar users = [\"Mariano\", \"Leandro\", \"Julian\"]\n---\nusers indexWhere (item) -> item startsWith \"Jul\"",
+    "output": "2"
+  },
+  {
+    "name": "join",
+    "description": "Joins two arrays of objects by a given ID criteria.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-join",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n var users = [{id: \"1\", name:\"Mariano\"},{id: \"2\", name:\"Leandro\"},{id: \"3\", name:\"Julian\"},{id: \"5\", name:\"Julian\"}]\n var products = [{ownerId: \"1\", name:\"DataWeave\"},{ownerId: \"1\", name:\"BAT\"}, {ownerId: \"3\", name:\"DataSense\"}, {ownerId: \"4\", name:\"SmartConnectors\"}]\n output application/json\n ---\n join(users, products, (user) -> user.id, (product) -> product.ownerId)",
+    "output": "[\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"DataWeave\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"BAT\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"3\",\n      \"name\": \"Julian\"\n    },\n    \"r\": {\n      \"ownerId\": \"3\",\n      \"name\": \"DataSense\"\n    }\n  }\n]"
+  },
+  {
+    "name": "leftJoin",
+    "description": "Joins two arrays of objects by a given ID criteria.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-leftjoin",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n var users = [{id: \"1\", name:\"Mariano\"},{id: \"2\", name:\"Leandro\"},{id: \"3\", name:\"Julian\"},{id: \"5\", name:\"Julian\"}]\n var products = [{ownerId: \"1\", name:\"DataWeave\"},{ownerId: \"1\", name:\"BAT\"}, {ownerId: \"3\", name:\"DataSense\"}, {ownerId: \"4\", name:\"SmartConnectors\"}]\n output application/json\n ---\n leftJoin(users, products, (user) -> user.id, (product) -> product.ownerId)",
+    "output": "[\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"DataWeave\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"BAT\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"2\",\n      \"name\": \"Leandro\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"3\",\n      \"name\": \"Julian\"\n    },\n    \"r\": {\n      \"ownerId\": \"3\",\n      \"name\": \"DataSense\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"5\",\n      \"name\": \"Julian\"\n    }\n  }\n]"
+  },
+  {
+    "name": "outerJoin",
+    "description": "Joins two array of objects by a given ID criteria.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-outerjoin",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n var users = [{id: \"1\", name:\"Mariano\"},{id: \"2\", name:\"Leandro\"},{id: \"3\", name:\"Julian\"},{id: \"5\", name:\"Julian\"}]\n var products = [{ownerId: \"1\", name:\"DataWeave\"},{ownerId: \"1\", name:\"BAT\"}, {ownerId: \"3\", name:\"DataSense\"}, {ownerId: \"4\", name:\"SmartConnectors\"}]\n output application/json\n ---\n outerJoin(users, products, (user) -> user.id, (product) -> product.ownerId)",
+    "output": "[\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"DataWeave\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"1\",\n      \"name\": \"Mariano\"\n    },\n    \"r\": {\n      \"ownerId\": \"1\",\n      \"name\": \"BAT\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"2\",\n      \"name\": \"Leandro\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"3\",\n      \"name\": \"Julian\"\n    },\n    \"r\": {\n      \"ownerId\": \"3\",\n      \"name\": \"DataSense\"\n    }\n  },\n  {\n    \"l\": {\n      \"id\": \"5\",\n      \"name\": \"Julian\"\n    }\n  },\n  {\n    \"r\": {\n      \"ownerId\": \"4\",\n      \"name\": \"SmartConnectors\"\n    }\n  }\n]"
+  },
+  {
+    "name": "partition",
+    "description": "Separates the array into the elements that satisfy the condition from those\nthat do not.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-partition",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar arr = [0,1,2,3,4,5]\n---\narr partition (item) -> isEven(item)",
+    "output": "{\n  \"success\": [\n    0,\n    2,\n    4\n  ],\n  \"failure\": [\n    1,\n    3,\n    5\n  ]\n}"
+  },
+  {
+    "name": "slice",
+    "description": "Selects the interval of elements that satisfy the condition:\nfrom <= indexOf(array) < until",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-slice",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar arr = [0,1,2,3,4,5]\n---\nslice(arr, 1, 4)",
+    "output": "[\n  1,\n  2,\n  3\n]"
+  },
+  {
+    "name": "some",
+    "description": "Returns true if at least one element in the array matches the specified condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-some",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n output application/json\n ---\n { \"results\" : [\n     \"ok\" : [\n       [1,2,3] some (($ mod 2) == 0),\n       [1,2,3] some ((nextNum) -> (nextNum mod 2) == 0),\n       [1,2,3] some (($ mod 2) == 1),\n       [1,2,3,4,5,6,7,8] some (log('should stop at 2 ==', $) == 2),\n       [1,2,3] some ($ == 1),\n       [1,1,1] some ($ == 1),\n       [1] some ($ == 1)\n     ],\n     \"err\" : [\n       [1,2,3] some ($ == 100),\n       [1] some ($ == 2)\n     ]\n   ]\n}",
+    "output": "{\n   \"results\": [\n     {\n       \"ok\": [ true, true, true, true, true, true, true ]\n     },\n     {\n       \"err\": [ false, false ]\n     }\n   ]\n }"
+  },
+  {
+    "name": "splitAt",
+    "description": "Splits an array into two at a given position.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-splitat",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar users = [\"Mariano\", \"Leandro\", \"Julian\"]\n---\nusers splitAt 1",
+    "output": "{\n  \"l\": [\n    \"Mariano\"\n  ],\n  \"r\": [\n    \"Leandro\",\n    \"Julian\"\n  ]\n}"
+  },
+  {
+    "name": "splitWhere",
+    "description": "Splits an array into two at the first position where the condition is met.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-splitwhere",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar users = [\"Mariano\", \"Leandro\", \"Julian\", \"Tomo\"]\n---\nusers splitWhere (item) -> item startsWith \"Jul\"",
+    "output": "{\n  \"l\": [\n    \"Mariano\",\n    \"Leandro\"\n  ],\n  \"r\": [\n    \"Julian\",\n    \"Tomo\"\n  ]\n}"
+  },
+  {
+    "name": "sumBy",
+    "description": "Returns the sum of the values of the elements in an array.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-sumby",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n output application/json\n ---\n{\n  \"sumBy\" : [\n    [ { a: 1 }, { a: 2 }, { a: 3 } ] sumBy $.a,\n    sumBy([ { a: 1 }, { a: 2 }, { a: 3 } ], (item) -> item.a)\n  ]\n}",
+    "output": "{ \"sumBy\" : [ 6, 6 ] }"
+  },
+  {
+    "name": "take",
+    "description": "Selects the first n elements. It returns an empty array when n <= 0\nand the original array when n > sizeOf(array).",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-take",
+    "source": " %dw 2.0\n import * from dw::core::Arrays\n var users = [\"Mariano\", \"Leandro\", \"Julian\"]\n output application/json\n ---\n take(users, 2)",
+    "output": "[\n  \"Mariano\",\n  \"Leandro\"\n]"
+  },
+  {
+    "name": "takeWhile",
+    "description": "Selects elements from the array while the condition is met but\nstops the selection process when it reaches an element that\nfails to satisfy the condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-arrays-functions-takewhile",
+    "source": "%dw 2.0\nimport * from dw::core::Arrays\noutput application/json\nvar arr = [0,1,2,1]\n---\narr takeWhile $ <= 1",
+    "output": "[\n  0,\n  1\n]"
+  }
+]

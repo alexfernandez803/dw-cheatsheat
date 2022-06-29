@@ -1,0 +1,44 @@
+[
+  {
+    "name": "compose",
+    "description": "Uses a custom interpolator to replace URL components with a\nencodeURIComponent result.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-compose",
+    "source": "%dw 2.0\noutput application/json\nvar urlPath = \"content folder\"\nimport * from dw::core::URL\n---\n{ \"encodedURL\" : compose([\"http://examplewebsite.com/\", \"/page.html\"], [\"$(urlPath)\"]) }",
+    "output": "{ \"encodedURL\" : \"http://examplewebsite.com/content%20folder/page.html\" }"
+  },
+  {
+    "name": "decodeURI",
+    "description": "Decodes the escape sequences (such as %20) in a URI.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-decodeuri",
+    "source": "%dw 2.0\nimport * from dw::core::URL\noutput application/json\n---\n{\n  \"decodeURI\" : decodeURI('http://asd/%20text%20to%20decode%20/text')\n}",
+    "output": "{\n  \"decodeURI\": \"http://asd/ text to decode /text\"\n}"
+  },
+  {
+    "name": "decodeURIComponent",
+    "description": "Decodes a Uniform Resource Identifier (URI) component previously created\nby encodeURIComponent or a similar routine.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-decodeuricomponent",
+    "source": "%dw 2.0\nimport * from dw::core::URL\noutput application/json\n---\n{\n  \"decodeURIComponent\": {\n    \"decodeURIComponent\" : decodeURIComponent(\"%20PATH/%20TO%20/DECODE%20\"),\n    \"decodeURIComponent\" : decodeURIComponent(\"%3B%2C%2F%3F%3A%40%26%3D\"),\n    \"decodeURIComponent\" : decodeURIComponent(\"%2D%5F%2E%21%7E%2A%27%28%29%24\"),\n  }\n}",
+    "output": "{\n   decodeURIComponent: {\n     decodeURIComponent: \" PATH/ TO /DECODE \",\n     decodeURIComponent: \";,/?:@&=\",\n    decodeURIComponent: \"-_.!~*'()\\$\"\n   }\n}"
+  },
+  {
+    "name": "encodeURI",
+    "description": "Encodes a URI with UTF-8 escape sequences.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-encodeuri",
+    "source": "%dw 2.0\nimport * from dw::core::URL\noutput application/json\n---\n{\n    \"encodeURI\" : encodeURI(\"http://asd/ text to decode /text\"),\n    \"not_encoded\": encodeURI(\"http://:;,/?:@&=\\$_-_.!~*'()\")\n}",
+    "output": "{\n   \"encodeURI\": \"http://asd/%20text%20to%20decode%20/%25/\\\"\\'/text\",\n   \"not_encoded\": \"http://:;,/?:@&=$_-_.!~*'()\"\n}"
+  },
+  {
+    "name": "encodeURIComponent",
+    "description": "Escapes certain characters in a URI component using UTF-8 encoding.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-encodeuricomponent",
+    "source": "%dw 2.0\nimport * from dw::core::URL\noutput application/json\n---\n{\n  \"comparing_encode_functions_output\" : {\n  \t\"encodeURIComponent\" : encodeURI(\" PATH/ TO /ENCODE \"),\n  \t\"encodeURI\" : encodeURI(\" PATH/ TO /ENCODE \"),\n  \t\"encodeURIComponent_to_hex\" : encodeURIComponent(\";,/?:@&=\"),\n  \t\"encodeURI_not_to_hex\" : encodeURI(\";,/?:@&=\"),\n  \t\"encodeURIComponent_not_encoded\" : encodeURIComponent(\"-_.!~*'()\"),\n  \t\"encodeURI_not_encoded\" : encodeURI(\"-_.!~*'()\")\n  }\n}",
+    "output": "{\n  \"comparing_encode_functions_output\": {\n    \"encodeURIComponent\": \"%20PATH/%20TO%20/ENCODE%20\",\n    \"encodeURI\": \"%20PATH/%20TO%20/ENCODE%20\",\n    \"encodeURIComponent_to_hex\": \"%3B%2C%2F%3F%3A%40%26%3D\",\n    \"encodeURI_not_to_hex\": \";,/?:@&=\",\n    \"encodeURIComponent_not_encoded\": \"-_.!~*'()\",\n    \"encodeURI_not_encoded\": \"-_.!~*'()\"\n  }\n}"
+  },
+  {
+    "name": "parseURI",
+    "description": "Parses a URL and returns a URI object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-url-functions-parseuri",
+    "source": "%dw 2.0\nimport * from dw::core::URL\noutput application/json\n---\n{\n  'composition': parseURI('https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#footer')\n}",
+    "output": "{\n  \"composition\": {\n    \"isValid\": true,\n    \"raw\": \"https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#footer\",\n    \"host\": \"en.wikipedia.org\",\n    \"authority\": \"en.wikipedia.org\",\n    \"fragment\": \"footer\",\n    \"path\": \"/wiki/Uniform_Resource_Identifier\",\n    \"scheme\": \"https\",\n    \"isAbsolute\": true,\n    \"isOpaque\": false\n  }\n}"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "field",
+    "description": "Creates a MultipartPart data structure using the specified part name,\ninput content for the part, format (or mime type), and optionally, file name.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-multipart-functions-field",
+    "source": "%dw 2.0\nimport dw::module::Multipart\noutput multipart/form-data\nvar myOrder = [\n  {\n    order: 1,\n    amount: 2\n  },\n  {\n    order: 32,\n    amount: 1\n  }\n]\nvar myClients = {\n  clients: {\n    client: {\n      id: 1,\n      name: \"Mariano\"\n    },\n    client: {\n      id: 2,\n      name: \"Shoki\"\n    }\n  }\n}\n---\n{\n  parts: {\n    order: Multipart::field({name:\"order\",value: myOrder, mime: \"application/json\", fileName: \"order.json\"}),\n    clients: Multipart::field({name:\"clients\", value: myClients, mime: \"application/xml\"})\n  }\n}",
+    "output": "------=_Part_8032_681891620.1542560124825\nContent-Type: application/json\nContent-Disposition: form-data; name=\"order\"; filename=\"order.json\"\n\n[\n  {\n    \"order\": 1,\n    \"amount\": 2\n  },\n  {\n    \"order\": 32,\n    \"amount\": 1\n  }\n]\n------=_Part_8032_681891620.1542560124825\nContent-Type: application/xml\nContent-Disposition: form-data; name=\"clients\"\n\n<clients>\n  <client>\n    <id>1</id>\n    <name>Mariano</name>\n  </client>\n  <client>\n    <id>2</id>\n    <name>Shoki</name>\n  </client>\n</clients>\n------=_Part_8032_681891620.1542560124825--"
+  },
+  {
+    "name": "file",
+    "description": "Creates a MultipartPart data structure from a resource file.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-multipart-functions-file",
+    "source": "%dw 2.0\nimport dw::module::Multipart\noutput multipart/form-data\nvar myClients = \"myClients.json\"\nvar myArgs = { name: \"myFile\", path: \"myClients.json\", mime: \"application/json\", * fileName: \"partMyClients.json\"}\n---\nMultipart::form([\n  Multipart::file(myArgs)\n])",
+    "output": "myClients.json"
+  },
+  {
+    "name": "form",
+    "description": "Creates a Multipart data structure using a specified array of parts.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-multipart-functions-form",
+    "source": "%dw 2.0\nimport dw::module::Multipart\noutput multipart/form-data\nvar firstPart = \"content for my first part\"\nvar secondPart = \"content for my second part\"\n---\n{\n  parts: {\n    part1: Multipart::field({name:\"myFirstPart\",value: firstPart}),\n    part2: Multipart::field(\"mySecondPart\", secondPart)\n  }\n}",
+    "output": "------=_Part_320_1528378161.1542639222352\nContent-Disposition: form-data; name=\"myFirstPart\"\n\ncontent for my first part\n------=_Part_320_1528378161.1542639222352\nContent-Disposition: form-data; name=\"mySecondPart\"\n\ncontent for my second part\n------=_Part_320_1528378161.1542639222352--"
+  },
+  {
+    "name": "generateBoundary",
+    "description": "Helper function for generating boundaries in Multipart data structures.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-multipart-functions-generateboundary",
+    "source": "",
+    "output": ""
+  }
+]

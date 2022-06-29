@@ -1,0 +1,261 @@
+[
+  {
+    "name": "arrayItem",
+    "description": "Returns the type of the given array. This function fails if the input is not an Array type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-arrayitem",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ArrayOfString = Array<String>\ntype ArrayOfNumber = Array<Number>\ntype ArrayOfAny = Array<Any>\ntype ArrayOfAnyDefault = Array\noutput application/json\n---\n{\n   a: arrayItem(ArrayOfString),\n   b: arrayItem(ArrayOfNumber),\n   c: arrayItem(ArrayOfAny),\n   d: arrayItem(ArrayOfAnyDefault)\n}",
+    "output": "{\n  \"a\": \"String\",\n  \"b\": \"Number\",\n  \"c\": \"Any\",\n  \"d\": \"Any\"\n}"
+  },
+  {
+    "name": "baseTypeOf",
+    "description": "Returns an the base type of the given type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-basetypeof",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = String {format: \"YYYY-MM-dd\"}\noutput application/json\n---\n{\n   a: baseTypeOf(AType)\n}",
+    "output": "{\n  \"a\": \"String\"\n}"
+  },
+  {
+    "name": "functionParamTypes",
+    "description": "Returns the list of parameters from the given function type.\nThis function fails if the provided type is not a Function type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-functionparamtypes",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::core::Types\ntype AFunction = (String, Number) -> Number\ntype AFunction2 = () -> Number\n---\n{\n    a: functionParamTypes(AFunction),\n    b: functionParamTypes(AFunction2)\n}",
+    "output": " {\n    \"a\": [\n      {\n        \"paramType\": \"String\",\n        \"optional\": false\n      },\n      {\n        \"paramType\": \"Number\",\n        \"optional\": false\n      }\n    ],\n    \"b\": [\n\n    ]\n  }"
+  },
+  {
+    "name": "functionReturnType",
+    "description": "Returns the type of a function’s return type.\nThis function fails if the input type is not a Function type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-functionreturntype",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::core::Types\ntype AFunction = (String, Number) -> Number\ntype AFunction2 = () -> Number\n---\n{\n    a: functionReturnType(AFunction),\n    b: functionReturnType(AFunction2)\n}",
+    "output": " {\n    \"a\": \"Number\",\n    \"b\": \"Number\"\n  }"
+  },
+  {
+    "name": "intersectionItems",
+    "description": "Returns an array of all the types that define a given Intersection type.\nThis function fails if the input is not an Intersection type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-intersectionitems",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = {name: String} & {age: Number}\noutput application/json\n---\n{\n   a: intersectionItems(AType)\n}",
+    "output": "{\n  \"a\": [\"Object\",\"Object\"]\n}"
+  },
+  {
+    "name": "isAnyType",
+    "description": "Returns true if the input is the Any type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isanytype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AAny = Any\noutput application/json\n---\n{\n   a: isAnyType(AAny),\n   b: isAnyType(Any),\n   c: isAnyType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isArrayType",
+    "description": "Returns true if the input type is the Array type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isarraytype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = Array<String>\noutput application/json\n---\n{\n   a: isArrayType(AType),\n   b: isArrayType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isBinaryType",
+    "description": "Returns true if the input is the Binary type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isbinarytype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ABinary = Binary\noutput application/json\n---\n{\n   a: isBinaryType(ABinary),\n   b: isBinaryType(Binary),\n   c: isBinaryType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isBooleanType",
+    "description": "Returns true if the input is the Boolean type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isbooleantype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ABoolean = Boolean\noutput application/json\n---\n{\n   a: isBooleanType(ABoolean),\n   b: isBooleanType(Boolean),\n   c: isBooleanType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isDateTimeType",
+    "description": "Returns true if the input is the DateTime type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isdatetimetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ADateTime = DateTime\noutput application/json\n---\n{\n   a: isDateTimeType(ADateTime),\n   b: isDateTimeType(DateTime),\n   c: isDateTimeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isDateType",
+    "description": "Returns true if the input is the Date type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isdatetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ADate = Date\noutput application/json\n---\n{\n   a: isDateType(ADate),\n   b: isDateType(Date),\n   c: isDateType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isFunctionType",
+    "description": "Returns true if the input is the Function type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isfunctiontype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AFunction = (String) -> String\noutput application/json\n---\n{\n   a: isFunctionType(AFunction),\n   b: isFunctionType(Boolean)\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isIntersectionType",
+    "description": "Returns true if the input type is the Intersection type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isintersectiontype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = {name: String} & {age: Number}\noutput application/json\n---\n{\n   a: isIntersectionType(AType),\n   b: isIntersectionType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isKeyType",
+    "description": "Returns true if the input is the Key type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-iskeytype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AKey = Key\noutput application/json\n---\n{\n   a: isKeyType(AKey),\n   b: isKeyType(Key),\n   c: isKeyType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isLiteralType",
+    "description": "Returns true if the input is the Literal type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isliteraltype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ALiteralType = \"Mariano\"\noutput application/json\n---\n{\n   a: isLiteralType(ALiteralType),\n   b: isLiteralType(Boolean)\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isLocalDateTimeType",
+    "description": "Returns true if the input is the LocalDateTime type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-islocaldatetimetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ALocalDateTime = LocalDateTime\noutput application/json\n---\n{\n   a: isLocalDateTimeType(ALocalDateTime),\n   b: isLocalDateTimeType(LocalDateTime),\n   c: isLocalDateTimeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isLocalTimeType",
+    "description": "Returns true if the input is the LocalTime type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-islocaltimetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ALocalTime = LocalTime\noutput application/json\n---\n{\n   a: isLocalTimeType(ALocalTime),\n   b: isLocalTimeType(LocalTime),\n   c: isLocalTimeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isNamespaceType",
+    "description": "Returns true if the input is the Namespace type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isnamespacetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ANamespace = Namespace\noutput application/json\n---\n{\n   a: isNamespaceType(ANamespace),\n   b: isNamespaceType(Namespace),\n   c: isNamespaceType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isNothingType",
+    "description": "Returns true if the input is the Nothing type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isnothingtype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ANothing = Nothing\noutput application/json\n---\n{\n   a: isNothingType(ANothing),\n   b: isNothingType(Nothing),\n   c: isNothingType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isNullType",
+    "description": "Returns true if the input is the Null type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isnulltype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ANull = Null\noutput application/json\n---\n{\n   a: isNullType(ANull),\n   b: isNullType(Null),\n   c: isNullType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isNumberType",
+    "description": "Returns true if the input is the Number type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isnumbertype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ANumber = Number\noutput application/json\n---\n{\n   a: isNumberType(ANumber),\n   b: isNumberType(Number),\n   c: isNumberType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isObjectType",
+    "description": "Returns true if the input is the Object type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isobjecttype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = {name: String}\noutput application/json\n---\n{\n   a: isObjectType(AType),\n   b: isObjectType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isPeriodType",
+    "description": "Returns true if the input is the Period type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isperiodtype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype APeriod = Period\noutput application/json\n---\n{\n   a: isPeriodType(APeriod),\n   b: isPeriodType(Period),\n   c: isPeriodType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isRangeType",
+    "description": "Returns true if the input is the Range type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-israngetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ARange = Range\noutput application/json\n---\n{\n   a: isRangeType(ARange),\n   b: isRangeType(Range),\n   c: isRangeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isReferenceType",
+    "description": "Returns true if the input type is a Reference type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isreferencetype",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::core::Types\n type AArray = Array<String> {n: 1}\n type AArray2 = Array<AArray>\n ---\n {\n     a: isReferenceType( AArray),\n     b: isReferenceType(arrayItem(AArray2)),\n     c: isReferenceType(String)\n }",
+    "output": "{\n  \"a\": false,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isRegexType",
+    "description": "Returns true if the input is the Regex type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isregextype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ARegex = Regex\noutput application/json\n---\n{\n   a: isRegexType(ARegex),\n   b: isRegexType(Regex),\n   c: isRegexType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isStringType",
+    "description": "Returns true if the input is the String type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isstringtype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AString = String\noutput application/json\n---\n{\n   a: isStringType(AString),\n   b: isStringType(String),\n   c: isStringType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isTimeType",
+    "description": "Returns true if the input is the Time type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-istimetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ATime = Time\noutput application/json\n---\n{\n   a: isTimeType(ATime),\n   b: isTimeType(Time),\n   c: isTimeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isTimeZoneType",
+    "description": "Returns true if the input is the TimeZone type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-istimezonetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype ATimeZone = TimeZone\noutput application/json\n---\n{\n   a: isTimeZoneType(ATimeZone),\n   b: isTimeZoneType(TimeZone),\n   c: isTimeZoneType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isTypeType",
+    "description": "Returns true if the input is the Type type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-istypetype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = Type\noutput application/json\n---\n{\n   a: isTypeType(AType),\n   b: isTypeType(Type),\n   c: isTypeType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "isUnionType",
+    "description": "Returns true if the input type is the Union type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isuniontype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = String | Number\noutput application/json\n---\n{\n   a: isUnionType(AType),\n   b: isUnionType(Boolean),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": false\n}"
+  },
+  {
+    "name": "isUriType",
+    "description": "Returns true if the input is the Uri type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-isuritype",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AUri = Uri\noutput application/json\n---\n{\n   a: isUriType(AUri),\n   b: isUriType(Uri),\n   c: isUriType(String),\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false\n}"
+  },
+  {
+    "name": "literalValueOf",
+    "description": "Returns the value of an input belongs to the Literal type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-literalvalueof",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = \"Mariano\"\noutput application/json\n---\n{\n   a: literalValueOf(AType)\n}",
+    "output": "{\n  \"a\": \"Mariano\"\n}"
+  },
+  {
+    "name": "metadataOf",
+    "description": "Returns metadata that is attached to the given type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-metadataof",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = String {format: \"YYYY-MM-dd\"}\noutput application/json\n---\n{\n   a: metadataOf(AType)\n}",
+    "output": "{\n  \"a\": {\"format\": \"YYYY-MM-dd\"}\n}"
+  },
+  {
+    "name": "nameOf",
+    "description": "Returns the name of the input type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-nameof",
+    "source": "%dw 2.0\noutput application/json\nimport * from dw::core::Types\ntype AArray = Array<String> {n: 1}\ntype AArray2 = Array<String>\n---\n {\n     a: nameOf(AArray),\n     b: nameOf(AArray2),\n     c: nameOf(String)\n }",
+    "output": "{\n   \"a\": \"AArray\",\n   \"b\": \"AArray2\",\n   \"c\": \"String\"\n }"
+  },
+  {
+    "name": "objectFields",
+    "description": "Returns the array of fields from the given Object type.\nThis function fails if the type is not an Object type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-objectfields",
+    "source": "import * from dw::core::Types\nns ns0 http://acme.com\ntype ADictionary = {_ : String}\ntype ASchema = {ns0#name @(ns0#foo: String): {}}\ntype AUser = {name @(foo?: String,l: Number)?: String, lastName*: Number}\n---\n{\n    a: objectFields(ADictionary),\n    b: objectFields(ASchema),\n    c: objectFields(Object),\n    d: objectFields(AUser)\n}",
+    "output": "{\n  \"a\": [\n    {\n      \"key\": {\n        \"name\": {\n          \"localName\": \"_\",\n          \"namespace\": null\n        },\n        \"attributes\": [\n\n        ]\n      },\n      \"required\": true,\n      \"repeated\": false,\n      \"value\": \"String\"\n    }\n  ],\n  \"b\": [\n    {\n      \"key\": {\n        \"name\": {\n          \"localName\": \"name\",\n          \"namespace\": \"http://acme.com\"\n        },\n        \"attributes\": [\n          {\n            \"name\": {\n              \"localName\": \"foo\",\n              \"namespace\": \"http://acme.com\"\n            },\n            \"value\": \"String\",\n            \"required\": true\n          }\n        ]\n      },\n      \"required\": true,\n      \"repeated\": false,\n      \"value\": \"Object\"\n    }\n  ],\n  \"c\": [\n\n  ],\n  \"d\": [\n    {\n      \"key\": {\n        \"name\": {\n          \"localName\": \"name\",\n          \"namespace\": null\n        },\n        \"attributes\": [\n          {\n            \"name\": {\n              \"localName\": \"foo\",\n              \"namespace\": null\n            },\n            \"value\": \"String\",\n            \"required\": false\n          },\n          {\n            \"name\": {\n              \"localName\": \"l\",\n              \"namespace\": null\n            },\n            \"value\": \"Number\",\n            \"required\": true\n          }\n        ]\n      },\n      \"required\": false,\n      \"repeated\": false,\n      \"value\": \"String\"\n    },\n    {\n      \"key\": {\n        \"name\": {\n          \"localName\": \"lastName\",\n          \"namespace\": null\n        },\n        \"attributes\": [\n\n        ]\n      },\n      \"required\": true,\n      \"repeated\": true,\n      \"value\": \"Number\"\n    }\n  ]\n}\n* ----"
+  },
+  {
+    "name": "unionItems",
+    "description": "Returns an array of all the types that define a given Union type.\nThis function fails if the input is not a Union type.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-types-functions-unionitems",
+    "source": "%dw 2.0\nimport * from dw::core::Types\ntype AType = String | Number\noutput application/json\n---\n{\n   a: unionItems(AType)\n}",
+    "output": "{\n  \"a\": [\"String\",\"Number\"]\n}"
+  }
+]

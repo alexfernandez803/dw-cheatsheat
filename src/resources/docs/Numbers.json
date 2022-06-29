@@ -1,0 +1,44 @@
+[
+  {
+    "name": "fromBinary",
+    "description": "Transforms from a binary number into a decimal number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-frombinary",
+    "source": "%dw 2.0\nimport fromBinary from dw::core::Numbers\noutput application/json\n---\n{\n    a: fromBinary(\"-10\"),\n    b: fromBinary(\"11111000111010111010110100101011100001001110000011010101100010111101001011100000100010011000011101100101101001111101111010110010010100110010100100000000000000000000000000000000000000000000000000000000000000\"),\n    c: fromBinary(0),\n    d: fromBinary(null),\n    e: fromBinary(\"100\"),\n}",
+    "output": "{\n  \"a\": -2,\n  \"b\": 100000000000000000000000000000000000000000000000000000000000000,\n  \"c\": 0,\n  \"d\": null,\n  \"e\": 4\n}"
+  },
+  {
+    "name": "fromHex",
+    "description": "Transforms a hexadecimal number into decimal number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-fromhex",
+    "source": "%dw 2.0\nimport fromHex from dw::core::Numbers\noutput application/json\n---\n{\n    a: fromHex(\"-1\"),\n    b: fromHex(\"3e3aeb4ae1383562f4b82261d969f7ac94ca4000000000000000\"),\n    c: fromHex(0),\n    d: fromHex(null),\n    e: fromHex(\"f\"),\n}",
+    "output": "{\n  \"a\": -1,\n  \"b\": 100000000000000000000000000000000000000000000000000000000000000,\n  \"c\": 0,\n  \"d\": null,\n  \"e\": 15\n}"
+  },
+  {
+    "name": "fromRadixNumber",
+    "description": "Transforms a number in the specified radix into decimal number",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-fromradixnumber",
+    "source": "%dw 2.0\nimport fromRadixNumber from dw::core::Numbers\noutput application/json\n---\n{\n    a: fromRadixNumber(\"10\", 2),\n    b: fromRadixNumber(\"FF\", 16)\n}",
+    "output": "{\n  \"a\": 2,\n  \"b\": 255\n}"
+  },
+  {
+    "name": "toBinary",
+    "description": "Transforms a decimal number into a binary number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-tobinary",
+    "source": "%dw 2.0\nimport toBinary from dw::core::Numbers\noutput application/json\n---\n{\n    a: toBinary(-2),\n    b: toBinary(100000000000000000000000000000000000000000000000000000000000000),\n    c: toBinary(0),\n    d: toBinary(null),\n    e: toBinary(2),\n}",
+    "output": "{\n  \"a\": \"-10\",\n  \"b\": \"11111000111010111010110100101011100001001110000011010101100010111101001011100000100010011000011101100101101001111101111010110010010100110010100100000000000000000000000000000000000000000000000000000000000000\",\n  \"c\": \"0\",\n  \"d\": null,\n  \"e\": \"10\"\n}"
+  },
+  {
+    "name": "toHex",
+    "description": "Transforms a decimal number into a hexadecimal number.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-tohex",
+    "source": "%dw 2.0\nimport toHex from dw::core::Numbers\noutput application/json\n---\n{\n    a: toHex(-1),\n    b: toHex(100000000000000000000000000000000000000000000000000000000000000),\n    c: toHex(0),\n    d: toHex(null),\n    e: toHex(15),\n}",
+    "output": "{\n  \"a\": \"-1\",\n  \"b\": \"3e3aeb4ae1383562f4b82261d969f7ac94ca4000000000000000\",\n  \"c\": \"0\",\n  \"d\": null,\n  \"e\": \"f\"\n}"
+  },
+  {
+    "name": "toRadixNumber",
+    "description": "Transforms a decimal number into a number string in other radix.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-numbers-functions-toradixnumber",
+    "source": "%dw 2.0\nimport toRadixNumber from dw::core::Numbers\noutput application/json\n---\n{\n    a: toRadixNumber(2, 2),\n    b: toRadixNumber(255, 16)\n}",
+    "output": "{\n  \"a\": \"10\",\n  \"b\": \"ff\"\n}"
+  }
+]

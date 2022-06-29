@@ -1,0 +1,65 @@
+[
+  {
+    "name": "divideBy",
+    "description": "Breaks up an object into sub-objects that contain the specified number of\nkey-value pairs.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-divideby",
+    "source": "%dw 2.0\nimport divideBy from dw::core::Objects\noutput application/json\n---\n{ \"divideBy\" : {\"a\": 1, \"b\" : true, \"a\" : 2, \"b\" : false, \"c\" : 3} divideBy 2 }",
+    "output": "{\n  \"divideBy\": [\n    {\n      \"a\": 1,\n      \"b\": true\n    },\n    {\n      \"a\": 2,\n      \"b\": false\n    },\n    {\n      \"c\": 3\n    }\n  ]\n}"
+  },
+  {
+    "name": "entrySet",
+    "description": "Returns an array of key-value pairs that describe the key, value, and any\nattributes in the input object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-entryset",
+    "source": "%dw 2.0\nimport * from dw::core::Objects\nvar myVar = read('<xml attr=\"x\"><a>true</a><b>1</b></xml>', 'application/xml')\noutput application/json\n---\n{ \"entrySet\" : entrySet(myVar) }",
+    "output": "{\n  \"entrySet\": [\n    {\n       \"key\": \"xml\",\n       \"value\": {\n         \"a\": \"true\",\n         \"b\": \"1\"\n       },\n       \"attributes\": {\n         \"attr\": \"x\"\n       }\n    }\n  ]\n}"
+  },
+  {
+    "name": "everyEntry",
+    "description": "Returns true if every entry in the object matches the condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-everyentry",
+    "source": "%dw 2.0\nimport everyEntry from dw::core::Objects\noutput application/json\n---\n{\n    a: {} everyEntry (value, key) -> value is String,\n    b: {a: \"\", b: \"123\"} everyEntry (value, key) -> value is String,\n    c: {a: \"\", b: 123} everyEntry (value, key) -> value is String,\n    d: {a: \"\", b: 123} everyEntry (value, key) -> key as String == \"a\",\n    e: {a: \"\"} everyEntry (value, key) -> key as String == \"a\",\n    f: null everyEntry ((value, key) -> key as String == \"a\")\n}",
+    "output": "{\n  \"a\": true,\n  \"b\": true,\n  \"c\": false,\n  \"d\": false,\n  \"e\": true,\n  \"f\": true\n}"
+  },
+  {
+    "name": "keySet",
+    "description": "Returns an array of key names from an object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-keyset",
+    "source": "%dw 2.0\nimport * from dw::core::Objects\noutput application/json\n---\n{ \"keySet\" : keySet({ \"a\" : true, \"b\" : 1}) }",
+    "output": "{ \"keySet\" : [\"a\",\"b\"] }"
+  },
+  {
+    "name": "mergeWith",
+    "description": "Appends any key-value pairs from a source object to a target object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-mergewith",
+    "source": "%dw 2.0\nimport mergeWith from dw::core::Objects\noutput application/json\n---\n{ \"mergeWith\" : { \"a\" : true, \"b\" : 1} mergeWith { \"a\" : false, \"c\" : \"Test\"} }",
+    "output": "\"mergeWith\": {\n    \"b\": 1,\n    \"a\": false,\n    \"c\": \"Test\"\n}"
+  },
+  {
+    "name": "nameSet",
+    "description": "Returns an array of keys from an object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-nameset",
+    "source": "%dw 2.0\nimport * from dw::core::Objects\noutput application/json\n---\n{ \"nameSet\" : nameSet({ \"a\" : true, \"b\" : 1}) }",
+    "output": "{ \"nameSet\" : [\"a\",\"b\"] }"
+  },
+  {
+    "name": "someEntry",
+    "description": "Returns true if at least one entry in the object matches the specified condition.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-someentry",
+    "source": "%dw 2.0\nimport someEntry from dw::core::Objects\noutput application/json\n---\n{\n    a: {} someEntry (value, key) -> value is String,\n    b: {a: \"\", b: \"123\"} someEntry (value, key) -> value is String,\n    c: {a: \"\", b: 123} someEntry (value, key) -> value is String,\n    d: {a: \"\", b: 123} someEntry (value, key) -> key as String == \"a\",\n    e: {a: \"\"} someEntry (value, key) -> key as String == \"b\",\n    f: null someEntry (value, key) -> key as String == \"a\"\n}",
+    "output": "{\n  \"a\": false,\n  \"b\": true,\n  \"c\": true,\n  \"d\": true,\n  \"e\": false,\n  \"f\": false\n}"
+  },
+  {
+    "name": "takeWhile",
+    "description": "Selects key-value pairs from the object while the condition is met.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-takewhile",
+    "source": "%dw 2.0\nimport * from dw::core::Objects\noutput application/json\nvar obj = {\n  \"a\": 1,\n  \"b\": 2,\n  \"c\": 5,\n  \"d\": 1\n}\n---\nobj takeWhile ((value, key) ->  value < 3)",
+    "output": "{\n  \"a\": 1,\n  \"b\": 2\n}"
+  },
+  {
+    "name": "valueSet",
+    "description": "Returns an array of the values from key-value pairs in an object.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-objects-functions-valueset",
+    "source": "%dw 2.0\nimport * from dw::core::Objects\noutput application/json\n---\n{ \"valueSet\" : valueSet({a: true, b: 1}) }",
+    "output": "{ \"valueSet\" : [true,1] }"
+  }
+]

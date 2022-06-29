@@ -1,0 +1,16 @@
+[
+  {
+    "name": "envVar",
+    "description": "Returns an environment variable with the specified name or null if the\nenvironment variable is not defined.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-system-functions-envvar",
+    "source": "%dw 2.0\nimport * from dw::System\noutput application/json\n---\n{\n    \"envVars\" : [\n       \"real\" : envVar(\"SHELL\"),\n       \"fake\" : envVar(\"FAKE_ENV_VAR\")\n    ]\n}",
+    "output": "\"envVars\": [\n  {\n    \"real\": \"/bin/bash\"\n  },\n  {\n    \"fake\": null\n  }\n]"
+  },
+  {
+    "name": "envVars",
+    "description": "Returns all of the environment variables defined in the host system.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-system-functions-envvars",
+    "source": "%dw 2.0\nimport dw::System\noutput application/json\n---\n{ \"envVars\" : dw::System::envVars().SHELL }",
+    "output": "{ \"envVars\": \"/bin/bash\" }"
+  }
+]

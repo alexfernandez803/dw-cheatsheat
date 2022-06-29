@@ -1,0 +1,23 @@
+[
+  {
+    "name": "causedBy",
+    "description": "This function matches an error by its type, like an error handler does.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-causedby",
+    "source": "<error-handler name=\"securityHandler\">\n  <on-error-continue type=\"SECURITY\">\n    <!-- general error handling for all SECURITY errors -->\n    <choice>\n      <when expression=\"#[Mule::causedBy(error, 'HTTP:UNAUTHORIZED')]\">\n        <!-- specific error handling only for HTTP:UNAUTHORIZED errors -->\n      </when>\n      <when expression=\"#[Mule::causedBy('HTTP:FORBIDDEN')]\">\n        <!-- specific error handling only for HTTP:FORBIDDEN errors -->\n      </when>\n    </choice>\n  </on-error-continue>\n</error-handler>",
+    "output": ""
+  },
+  {
+    "name": "lookup",
+    "description": "This function enables you to execute a flow within a Mule app and\nretrieve the resulting payload.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-lookup",
+    "source": "<flow name=\"flow1\">\n  <http:listener doc:name=\"Listener\" config-ref=\"HTTP_Listener_config\"\n    path=\"/source\"/>\n  <ee:transform doc:name=\"Transform Message\" >\n    <ee:message >\n      <ee:set-payload ><![CDATA[%dw 2.0\noutput application/json\n---\nMule::lookup('flow2', {test:'hello '})]]></ee:set-payload>\n    </ee:message>\n  </ee:transform>\n</flow>\n<flow name=\"flow2\" >\n  <set-payload value='#[payload.test ++ \"world\"]' doc:name=\"Set Payload\" />\n  <logger level=\"INFO\" doc:name=\"Logger\" message='#[payload]'/>\n</flow>",
+    "output": ""
+  },
+  {
+    "name": "p",
+    "description": "This function returns a string that identifies the value of one of these\ninput properties: Mule property placeholders, System properties, or\nEnvironment variables.",
+    "href": "https://docs.mulesoft.com/mule-runtime/4.3/dw-mule-functions-p",
+    "source": "<flow name=\"simple\">\n <logger level=\"INFO\" doc:name=\"Logger\"\n   message=\"#[Mule::p('http.port')]\"/>\n</flow>",
+    "output": ""
+  }
+]
